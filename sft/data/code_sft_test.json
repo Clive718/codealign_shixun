@@ -1,0 +1,1212 @@
+[
+  {
+    "instruction": "Build a neural network model in Python to predict the quality of a wine based on its characteristics.",
+    "input": "Not applicable",
+    "output": "import pandas as pd\nimport numpy as np\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import StandardScaler\nfrom keras.models import Sequential\nfrom keras.layers import Dense\n\n# Load the data\nwine_data = pd.read_csv(\"wine.csv\")\n\n# Split the data into training and test sets\nX = wine_data.drop(\"quality\", axis=1)\ny = np.array(wine_data[\"quality\"])\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)\n\n# Scale the data\nscaler = StandardScaler()\nX_train = scaler.fit_transform(X_train)\nX_test = scaler.fit_transform(X_test)\n\n# Create the model\nmodel = Sequential()\nmodel.add(Dense(128, input_shape=(len(X_train[0]),), activation=\"relu\"))\nmodel.add(Dense(64, activation=\"relu\"))\nmodel.add(Dense(32, activation=\"relu\"))\nmodel.add(Dense(16, activation=\"relu\"))\nmodel.add(Dense(1, activation=\"sigmoid\"))\n\n# Compile the model\nmodel.compile(optimizer=\"adam\", loss=\"mean_squared_error\", metrics=[\"accuracy\"])\n\n# Fit the model\nmodel.fit(\n X_train,\n y_train,\n validation_data=(X_test, y_test),\n epochs=500,\n batch_size=32\n)"
+  },
+  {
+    "instruction": "Rewrite this Python code to modernize it and make it more efficient.",
+    "input": "def removeNegatives(nums):\n  result = []\n  for n in nums:\n    if n >= 0:\n      result.append(n)\n  return result",
+    "output": "def removeNegatives(nums):\n    return [n for n in nums if n >= 0]"
+  },
+  {
+    "instruction": "Write an object-oriented program in python to represent a booking system.",
+    "input": "",
+    "output": "#Class to represent a booking system\nclass Booking:\n    def __init__(self, name, date, time):\n        self.name = name\n        self.date = date\n        self.time = time\n    \n    def view_details(self):\n        print(\"Name: \", self.name)\n        print(\"Date: \", self.date)\n        print(\"Time: \", self.time)\n    \n    def edit_details(self):\n        self.name = input(\"Enter new name: \")\n        self.date = input(\"Enter new date: \")\n        self.time = input(\"Enter new time: \")\n    \n    def cancel_booking(self):\n        self.name = None\n        self.date = None\n        self.time = None\n        print(\"Booking cancelled successfully.\")"
+  },
+  {
+    "instruction": "Develop a Python function that sorts a given list of strings on the basis of the length of the string.",
+    "input": "['Coders', 'NS', 'Coding', 'Program']",
+    "output": "def sort_list(lst):\n    return sorted(lst, key = len)\n\nlst = ['Coders', 'NS', 'Coding', 'Program']\n\nresult = sort_list(lst)\n\nprint(result)  # ['NS', 'Coding', 'Coders', 'Program']"
+  },
+  {
+    "instruction": "Develop a Python program to print the first 20 Armstrong numbers",
+    "input": "",
+    "output": "for num in range(1,21):\n   sum = 0\n   temp = num\n   while temp > 0:\n       digit = temp % 10\n       sum += digit ** 3\n       temp //= 10\n   if num == sum:\n       print(num)"
+  },
+  {
+    "instruction": "Create a Python script to check a given URL and see if it is active or not.",
+    "input": "",
+    "output": "import requests \n  \ndef check_url(url): \n    try:\n        response = requests.get(url)\n        if response.status_code == 200:\n            return True\n        else:\n            return False\n    except:\n        return False"
+  },
+  {
+    "instruction": "Create a machine learning model in Python to predict a customer’s churn status given their customer ID and purchase history.",
+    "input": "Customer ID: C123456\nPurchase History: [“Pizza”, “Burger”, “Ice Cream”]",
+    "output": "# Importing the libraries\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport pandas as pd\n\n# Importing the dataset\ndataset = pd.read_csv('Churn_Modelling.csv')\nX = dataset.iloc[:, 3:13].values\ny = dataset.iloc[:, 13].values\n\n# Encoding categorical data\nfrom sklearn.preprocessing import LabelEncoder, OneHotEncoder\nlabelencoder_X_2 = LabelEncoder()\nX[:, 2] = labelencoder_X_2.fit_transform(X[:, 2])\nonehotencoder = OneHotEncoder(categorical_features = [2])\nX = onehotencoder.fit_transform(X).toarray()\nX = X[:, 1:] # To remove dummy var trap\n\n# Splitting the dataset into the Training set and Test set\nfrom sklearn.model_selection import train_test_split\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, random_state = 0)\n\n# Fitting XGBoost to the Training set\nfrom xgboost import XGBClassifier\nclassifier = XGBClassifier()\nclassifier.fit(X_train, y_train)\n\n# Predicting a new customer's churn status\ncustomerID = 'C123456'\nnew_customer = [customerID, X_train[0, 1], X_train[0, 2], X_train[0, 3], X_train[0, 4], X_train[0, 5], \n                X_train[0, 6], X_train[0, 7], X_train[0, 8], X_train[0, 9], X_train[0, 10], X_train[0, 11]]\n\nnew_customer = np.array(new_customer).reshape((1,-1))\n\nnew_customer[:, 2] = labelencoder_X_2.transform(new_customer[:, 2])\nnew_customer = onehotencoder.transform(new_customer).toarray()\nnew_customer = new_customer[:, 1:] # To remove dummy var trap\n\ny_pred = classifier.predict(new_customer)\n\nif y_pred == 0:\n    print('The customer with ID {} will not churn.'.format(customerID))\nelse:\n    print('The customer with ID {} will churn.'.format(customerID))"
+  },
+  {
+    "instruction": "Classify the given words using a Python classification program.",
+    "input": "Words: horse, dog, cat",
+    "output": "import nltk\nfrom nltk.tokenize import word_tokenize\n\nwords = ['horse', 'dog', 'cat']\n\ntokens = [word_tokenize(word) for word in words]\n\nfor token in tokens:\n    print(nltk.pos_tag([token])[0][1])\n\n# prints NN, NN, NN"
+  },
+  {
+    "instruction": "Create a Python class to store data about a student enrolled in a course.",
+    "input": "The class should have properties for name, course title, grade, and teacher's name of the student.",
+    "output": "class Student: \n \n    # Initializing the student data \n    def __init__(self, name, course_title, grade, teacher_name): \n        self.name = name \n        self.course_title = course_title \n        self.grade = grade \n        self.teacher_name = teacher_name \n \n    # Getters to return the student data \n    def get_name(self): \n        return self.name \n      \n    def get_course_title(self): \n        return self.course_title \n      \n    def get_grade(self): \n        return self.grade \n \n    def get_teacher_name(self): \n        return self.teacher_name \n  \n# Create a new student object \nstudent_1 = Student(\"John Doe\", \"Computer Science\", \"A\", \"Mr. Smith\") \n  \n# Print student data \nprint(\"Name: \" + student_1.get_name()) \nprint(\"Course Title: \" + student_1.get_course_title()) \nprint(\"Grade: \" + student_1.get_grade()) \nprint(\"Teacher: \" + student_1.get_teacher_name())"
+  },
+  {
+    "instruction": "Convert the following SQL query into a python pandas dataframe.",
+    "input": "SELECT * from books WHERE author LIKE '%Rowling%';",
+    "output": "import pandas as pd\n\n# read the books table\ndf = pd.read_sql(\"SELECT * from books\", connection)\n\n# filter for rows with matching author\ndf_filtered = df[df['author'].str.contains(\"Rowling\")]\n\n# print the results\nprint(df_filtered)"
+  },
+  {
+    "instruction": "Construct an AI model to predict stocks in Python.",
+    "input": "",
+    "output": "import pandas as pd\nimport numpy as np\nimport keras\n\n# Read the data\ndf = pd.read_csv('stocks.csv')\n\n# Extract the features and target\nfeatures = df.drop(['Name', 'symbol', 'Close'], axis=1).values\ntarget = df.Close.values\n\n# Split the data into training and test sets\nX_train, X_test, y_train, y_test = train_test_split(features, target, test_size=0.2, random_state=42)\n\n# Construct a model\nmodel = keras.Sequential([\n    keras.layers.Dense(128, activation='relu'),\n    keras.layers.Dense(32, activation='relu'),\n    keras.layers.Dense(1, activation='linear'),\n])\n\n# Compile the model\nmodel.compile(optimizer='adam',\n              loss='mse',\n              metrics=['mae'])\n\n# Train model\nmodel.fit(X_train, y_train, epochs=10)\n\n# Evaluate the model\ntest_loss, test_acc = model.evaluate(X_test, y_test)\n\nprint('Test accuracy:', test_acc)"
+  },
+  {
+    "instruction": "Create a function in Python to convert hours to minutes.",
+    "input": "",
+    "output": "def hours_to_minutes(hours):\n    \"\"\"Converts input hours to minutes.\"\"\"\n    return hours * 60"
+  },
+  {
+    "instruction": "Train a Python model to classify a given text string as either positive or negative sentiment.",
+    "input": "",
+    "output": "import numpy as np\nimport pandas as pd\nfrom sklearn.feature_extraction.text import CountVectorizer\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.naive_bayes import MultinomialNB\n \ndef sentiment_model(text):\n    # Read in data\n    data = pd.DataFrame([text])\n \n    # Convert text data to bag of words\n    vectorizer = CountVectorizer()\n    vectorized_data = vectorizer.fit_transform(data[0])\n \n    # Split data into train and test sets\n    labels = np.array([1, 0])\n    X_train, X_test, y_train, y_test = train_test_split(vectorized_data.toarray(),\n                                                        labels,\n                                                        test_size=0.1, \n                                                        random_state=42)\n \n    # Fit Naive Bayes model\n    clf = MultinomialNB()\n    clf.fit(X_train, y_train)\n \n    # Make predictions\n    return clf.predict(X_test)\n\nif __name__ == '__main__':\n    text = \"<PUT INPUT HERE>\"\n    print(sentiment_model(text))"
+  },
+  {
+    "instruction": "Create a Python web scraper for extracting data from TripAdvisor. The scraper should scrape reviews and ratings for all restaurants and hotels within 5 miles of a given geolocation.",
+    "input": "Location coordinates - (43.626074, -79.491644)",
+    "output": "import requests\nfrom bs4 import BeautifulSoup\n\ncoords = (43.626074, -79.491644)\nurl = 'https://www.tripadvisor.com/Search?geo={},{}&q=restaurants+and+hotels&distance=5mi'.format(*coords)\nresponse = requests.get(url).text\nsoup = BeautifulSoup(response, 'html.parser')\n\nrating_nodes = soup.find_all('span', class_='ui_bubble_rating')\nreview_nodes = soup.find_all('div', class_='review-container')\n\nreviews = []\n\nfor rating_node, review_node in zip(rating_nodes, review_nodes):\n rating = int(float(rating_node.attrs['class'][1][7:]))\n text = review_node.find('span', class_='noQuotes').text\n reviews.append((rating, text))\n\nprint(reviews)"
+  },
+  {
+    "instruction": "Develop a recursive algorithm in Python for generating permutations of a given set of elements.",
+    "input": "Not applicable",
+    "output": "def permutations(s): \n if len(s) == 0: \n  return [] \n if len(s) == 1: \n  return [s] \n l = [] # empty list that will store current permutation \n # Iterate the input(s) and calculate the permutation \n for i in range(len(s)): \n   m = s[i] \n   rem = s[:i] + s[i+1:] \n   for p in permutations(rem): \n    l.append([m] + p) \n return l"
+  },
+  {
+    "instruction": "Create a vector addition program in Python.",
+    "input": "",
+    "output": "def vector_add(a, b):\n    c = []\n    for i in range(len(a)):\n        c.append(a[i] + b[i])\n\n    return c"
+  },
+  {
+    "instruction": "Write a python program to detect if a given docstring contains Tensorflow code.",
+    "input": "\"\"\"This is an example docstring.\n\nimport tensorflow as tf\n\nx = tf.constant(42)\ny = tf.constant(4)\n\ndef add():\n    return x + y\n\"\"\"",
+    "output": "import re\n\ndef contains_tensorflow_code(docstring):\n    \"\"\"\n    Detects if the given docstring contains Tensorflow code\n    :param docstring: The docstring to check\n    :type docstring: string\n    \"\"\"\n    # check if there are any TensorFlow import statements\n    has_import_tf = False\n    lines = docstring.split('\\n')\n    for line in lines:\n        if re.search('^import\\s+tensorflow', line):\n            has_import_tf = True\n\n    # check for the presence of any TensorFlow related strings\n    has_tf_string = False\n    for line in lines:\n        if re.search('^tf.', line):\n            has_tf_string = True\n\n    return has_import_tf or has_tf_string"
+  },
+  {
+    "instruction": "Implement the quicksort algorithm in Python.",
+    "input": "",
+    "output": "def quicksort(numbers):\n    '''\n    This function implements the quicksort algorithm to sort a given array of numbers.\n    \n    Args:\n        numbers (list): the array of numbers to be sorted\n    \n    Returns:\n        list: the sorted array\n    '''\n    if len(numbers) == 0:\n        return []\n\n    # pivot will be the middle element of the list\n    pivot = numbers[0]\n    left = [x for x in numbers[1:] if x < pivot]\n    right = [x for x in numbers[1:] if x >= pivot]\n\n    return quicksort(left) + [pivot] + quicksort(right)"
+  },
+  {
+    "instruction": "Write a Python program that takes two numbers and prints their multiplication table.",
+    "input": "",
+    "output": "def multiplicationTable(a, b):\n    for i in range(1, b+1):\n        print(\"{} x {} = {}\".format(a, i, a * i))\n\n\nmultiplicationTable(9, 10) #prints a multiplication table for 9 and 10"
+  },
+  {
+    "instruction": "Optimize the following Python code to reduce the complexity.",
+    "input": "def find_shortest_word(words):\n    shortest_word = None\n    shortest_length = float('inf')\n    for word in words:\n        if len(word) < shortest_length:\n            shortest_word = word\n            shortest_length = len(word)\n\n    return shortest_word",
+    "output": "def find_shortest_word(words):\n    shortest_length = float('inf')\n    for word in words:\n        if len(word) < shortest_length:\n            shortest_word = word\n            shortest_length = len(word)\n\n    return shortest_word"
+  },
+  {
+    "instruction": "Design a basic chatbot in Python, using the NLTK library for natural language processing.",
+    "input": "Not applicable",
+    "output": "import nltk\nimport re\n\n# define a function to tokenize words\ndef tokenize_words(words):\n tokens = nltk.word_tokenize(words)\n return tokens\n\n# define a function to remove special characters\ndef remove_special_characters(text):\n tokens = tokenize_words(text)\n pattern = re.compile('[{}]'.format(re.escape(',.!?@#$%^&*()')))\n filtered_tokens = filter(None, [pattern.sub('', token) for token in tokens])\n return ' '.join(filtered_tokens)\n\n# define a function to create a chat response\ndef generate_response(user_input):\n response = ''\n # preprocess the user input\n user_input = remove_special_characters(user_input.lower())\n \n # code for your bot goes here\n \n return response"
+  },
+  {
+    "instruction": "Develop a machine learning model in Python to predict the survival rate of a passenger in the Titanic dataset.",
+    "input": "Not applicable",
+    "output": "import pandas as pd\nimport matplotlib.pyplot as plt\nfrom matplotlib import style\nfrom sklearn import preprocessing\nfrom sklearn.model_selection import cross_validate, train_test_split\nfrom sklearn.linear_model import LogisticRegression\nfrom sklearn.metrics import accuracy_score\n\nstyle.use(\"seaborn-whitegrid\")\n\n# Load the dataset\ndf = pd.read_csv(\"dataset.csv\")\n\n# Preprocess the data\nle = preprocessing.LabelEncoder()\ndf['Sex'] = le.fit_transform(df['Sex'])\n\n# Feature selection\nX = df[['Pclass','Sex','Age','SibSp','Parch','Fare']]\ny = df['Survived']\n\n# Split into training and test sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)\n\n# Create the model\nmodel = LogisticRegression()\nmodel.fit(X_train, y_train)\n\n# Make predictions\ny_pred = model.predict(X_test)\n\naccuracy = accuracy_score(y_test, y_pred)\nprint('Accuracy: ', accuracy)"
+  },
+  {
+    "instruction": "Write a Python program to create a program to compare two lists of numbers.",
+    "input": "list_a = [1, 2, 3]\nlist_b = [2, 3, 4]",
+    "output": "def compare_lists(list_a, list_b):\n    a_not_in_b = []\n    b_not_in_a = []\n    \n    for a in list_a:\n        if a not in list_b:\n            a_not_in_b.append(a)\n            \n    for b in list_b:\n        if b not in list_a:\n            b_not_in_a.append(b)\n            \n    return a_not_in_b, b_not_in_a"
+  },
+  {
+    "instruction": "Create a Python program to extract data from webpages using the BeautifulSoup library.",
+    "input": "Not applicable",
+    "output": "from bs4 import BeautifulSoup\nimport requests\n\n# Get the page\nurl = 'http://example.com'\npage = requests.get(url)\n\n# Use BeautifulSoup for parsing\nsoup = BeautifulSoup(page.content, 'html.parser')\n\n# Get the data\ndata = soup.find_all('div', class_='datacontainer')\n\n# Print the data\nfor item in data:\n print(item.text)"
+  },
+  {
+    "instruction": "Develop a machine learning model in Python to predict house prices based on square footage, number of rooms, and location.",
+    "input": "Not applicable",
+    "output": "import pandas as pd\nimport numpy as np\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.model_selection import train_test_split \n\n# Load and preprocess the data \ndf = pd.read_csv('house_data.csv') \nX = df[['sqft', 'rooms', 'loc']]\ny = df['price']\n\n# Split the data into train and test sets \nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0) \n\n# Train the model \nmodel = LinearRegression()\nmodel.fit(X_train, y_train)\n\n# Predict values for test set \ny_pred = model.predict(X_test) \n\n# Evaluate the model \nscore = model.score(X_test, y_test)\nprint(\"The model accuracy is:\", score)"
+  },
+  {
+    "instruction": "Rewrite this JavaScript code in Python.",
+    "input": "let arr = [1, 2, 3, 4, 5]\narr.forEach(function(element) {\n    console.log(element * 2)\n});",
+    "output": "arr = [1, 2, 3, 4, 5]\nfor element in arr:\n   print(element * 2)"
+  },
+  {
+    "instruction": "Write a Python program to generate a random number between 1 and 10.",
+    "input": "",
+    "output": "import random \n\nrandom_num = random.randint(1, 10)  \nprint(random_num)"
+  },
+  {
+    "instruction": "Construct an HMM model in Python to classify the gender of a given sentence.",
+    "input": "",
+    "output": "#import necessary libraries\nimport nltk\nimport numpy as np\nfrom nltk.corpus import brown\nfrom nltk.tokenize import word_tokenize\n\n#initialize HMM \ndef hmm():\n    # load corpus\n    corpus = brown.tagged_sents(categories=['adventure','fiction','romance',\n                                            'humor','mystery','science_fiction'])\n\n    # split corpus and generate tags\n    train_data,test_data = corpus[:1000], corpus[1000:]\n    tags = set([tag for sent in train_data for (word,tag) in sent])\n\n    # initialize hmm\n    hmm = {tag:{tag:{0:0 for tag in tags} for tag in tags} }\n    hmm['start'] = {tag:0 for tag in tags}\n    hmm['end'] = {tag:0 for tag in tags}\n\n    # calculate initial probabilities\n    for sent in train_data:\n        for i in range(len(sent)):\n            word,tag = sent[i]\n            if i == 0:\n                hmm['start'][tag] += 1\n            else:\n                previous_tag = sent[i-1][1]\n                hmm[previous_tag][tag][0] += 1\n            hmm[tag][tag][word] = hmm[tag][tag].get(word, 0) + 1\n\n    # calculate transition probabilities\n    for previous_tag in hmm:\n        if previous_tag != 'start' and previous_tag != 'end':\n            total = sum(hmm[previous_tag][tag][0] for tag in hmm[previous_tag])\n            for tag in hmm[previous_tag]:\n                hmm[previous_tag][tag][0] /= total\n    return hmm\n\ndef predict(sentence, hmm):\n    sentence = sentence.lower()\n    tokenized_sentence = word_tokenize(sentence)\n    # assign default tag to each word\n    tagged_sentence = []\n    for word in tokenized_sentence:\n        tagged_sentence.append((word,'M'))\n\n    # calculate likelihood of each tag for each word\n    for i in range(len(tagged_sentence)):\n        word,tag = tagged_sentence[i]\n        if i == 0:\n            probs = {tag:hmm['start'][tag] for tag in hmm['start']}\n        else:\n            previous_tag = tagged_sentence[i-1][1]\n            probs = {tag:hmm[previous_tag][tag][0] * hmm[tag][tag].get(word, 0) \n                     for tag in hmm[previous_tag]}\n        max_prob, tag_chosen = max(probs.items(), key=lambda x:x[1])\n        tagged_sentence[i] = (word, tag_chosen)\n    return tagged_sentence"
+  },
+  {
+    "instruction": "Create a web crawler in Python to scrape data from Quora.",
+    "input": "",
+    "output": "# import libraries\nimport requests\nfrom bs4 import BeautifulSoup\n \n# define the search url\nurl = 'https://www.quora.com/search'\n \n# create a payload for the query parameters\npayload = {'q': 'machine learning'}\n \n# get the content from the specified url\nr = requests.get(url, params=payload)\n \n# parse the content\nsoup = BeautifulSoup(r.content, 'html.parser')\n \n# collect data from all the elements with class 'question_link'\nresults = soup.find_all('a', class_='question_link')\n \n# print the results\nfor result in results:\n    print(result.text)"
+  },
+  {
+    "instruction": "Create a function in Python that takes a list of numbers as input and returns a list with the negative numbers from the given list.",
+    "input": "Not applicable",
+    "output": "def get_negative_numbers(numbers):\n  return [num for num in numbers if num < 0]"
+  },
+  {
+    "instruction": "Write a Python function to sort the given list of tuples based on their second elements.",
+    "input": "",
+    "output": "def sort_tuples_by_second(tuples):\n tuple_order = sorted(tuples, key=lambda x: x[1])\n return tuple_order"
+  },
+  {
+    "instruction": "Create a Python program to add two numbers.",
+    "input": "",
+    "output": "def add_numbers(a,b):\n    return a + b"
+  },
+  {
+    "instruction": "Design a function in Python to remove the vowels from a given string.",
+    "input": "text = \"Hello World\"",
+    "output": "def remove_vowels(text):\n    \"\"\"Remove the vowels from a given string.\"\"\"\n    vowels = [\"a\", \"e\", \"i\", \"o\", \"u\"]\n    result = \"\"\n    for char in text:\n        if char.lower() not in vowels:\n            result += char\n    return result\n\n# Output\nprint(remove_vowels(text))"
+  },
+  {
+    "instruction": "Write a Python program to remove all duplicated words from a given input string.",
+    "input": "sentence = \"This is a sentence with some duplicate words in it.\"",
+    "output": "sentence_words = sentence.split(\" \")\n \nunique_words = set(sentence_words)\n \nprint(\" \".join(unique_words))"
+  },
+  {
+    "instruction": "Develop an algorithm to check if a string S is a palindrome in Python.",
+    "input": "String S = \"racecar\"",
+    "output": "def is_palindrome(s):\n    # Convert strings to lowercase\n    s = s.lower()\n \n    # Iterate through middle of string with indices \n    for i in range(len(s) // 2):\n        if s[i] != s[len(s) - i - 1]:\n            return False\n    return True"
+  },
+  {
+    "instruction": "Develop a Python program to query the Spotify Web API for information about a given artist.",
+    "input": "The Beatles",
+    "output": "import requests\nimport json\n\n# Get access token\nurl = 'https://accounts.spotify.com/api/token'\ndata = {'grant_type': 'client_credentials'}\nauth = ('YOUR_CLIENT_ID', 'YOUR_CLIENT_SECRET')\nresponse = requests.post(url, data=data, auth=auth)\ntoken = json.loads(response.text)['access_token']\n\n# Search for artist\nurl = 'https://api.spotify.com/v1/search'\nparams = { 'q': 'The Beatles', 'type': 'artist' }\nheader = { 'Authorization': f'Bearer {token}' }\nresponse = requests.get(url, params=params, headers=header)\nartist = json.loads(response.text)['artists']['items'][0]\n\n# Get artist information\nurl = artist['href']\nresponse = requests.get(url, headers=header)\nartist_info = json.loads(response.text)\n\nprint(artist_info)"
+  },
+  {
+    "instruction": "Edit the given Python code to format the output as a table using tabulate.",
+    "input": "fruits = [\"apple\", \"orange\", \"pineapple\", \"melon\"]\nfor fruit in fruits:\n    print(fruit)",
+    "output": "import tabulate\n\nfruits = [\"apple\", \"orange\", \"pineapple\", \"melon\"] \ntable = [(fruit,) for fruit in fruits] \nprint(tabulate.tabulate(table, headers=[\"Fruits\"])) \n# Output: \n# Fruits\n# apple\n# orange\n# pineapple\n# melon"
+  },
+  {
+    "instruction": "Develop a linear search algorithm in Python to find an element in an array.",
+    "input": "[1, 5, 8, 10], 8",
+    "output": "def linearSearch(arr, x): \n    for i in range(len(arr)): \n        if arr[i] == x: \n            return i \n    return -1\n  \n# Driver Code \narr = [1, 5, 8, 10] \nx = 8\n  \n# Function call \nresult = linearSearch(arr, x) \n  \nif(result == -1): \n    print(\"Element is not present in the array\") \nelse: \n    print(\"Element is present at index\", result)"
+  },
+  {
+    "instruction": "Create a Python program to optimize a given function for a given interval.",
+    "input": "func = lambda x: x**2 - 4.5*x + 5 \ninterval = [-3.5, 4.5]",
+    "output": "import scipy.optimize\n\n# Execute optimization\nmini = scipy.optimize.minimize_scalar(func = func, \n                bounds = interval)\n                 \n# Print optimal value x_opt\nprint('{0:5.5f}'.format(mini.x))"
+  },
+  {
+    "instruction": "Design a Python program to compute the sum of the digits of a number.",
+    "input": "123",
+    "output": "def sum_of_digits(n):\n    r = 0\n    while (n > 0):\n        r += n % 10\n        n //= 10\n    return r\n\nprint(sum_of_digits(123)) # 6"
+  },
+  {
+    "instruction": "Generate a Python program to fetch the data from a provided JSON input and store the data into a SQLite database.",
+    "input": "{ \n \"items\": [\n  { \"name\": \"item1\", \"value\": 1 },\n  { \"name\": \"item2\", \"value\": 2 },\n  { \"name\": \"item3\", \"value\": 3 },\n  { \"name\": \"item4\", \"value\": 4 },\n  { \"name\": \"item5\", \"value\": 5 }\n ]\n}",
+    "output": "import json\nimport sqlite3\n \n# parse the JSON data\njsonStr = '''{ \n \"items\": [\n  { \"name\": \"item1\", \"value\": 1 },\n  { \"name\": \"item2\", \"value\": 2 },\n  { \"name\": \"item3\", \"value\": 3 },\n  { \"name\": \"item4\", \"value\": 4 },\n  { \"name\": \"item5\", \"value\": 5 }\n ]\n}'''\ndecodedData = json.loads(jsonStr)\n \n# connect to the SQLite database\ncon = sqlite3.connect('data.db')\ncur = con.cursor()\n \n# create the necessary tables\ncur.execute('CREATE TABLE IF NOT EXISTS items(name TEXT, value INTEGER)')\n \n# now iterate through the items in the data and store them in the database\nfor item in decodedData['items']:\n cur.execute('INSERT INTO items(name, value) VALUES (?, ?)', (item['name'], item['value']))\n \ncon.commit()\n \n# close the connection\ncon.close()"
+  },
+  {
+    "instruction": "Generate a Machine Learning model in Python for sentiment analysis on a rhetorical question.",
+    "input": "Not applicable",
+    "output": "import numpy as np\nimport pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LogisticRegression\nfrom sklearn.feature_extraction.text import TfidfVectorizer\n\n# Load the dataset\ndata = pd.read_csv('data.csv')\n\n# Split the dataset into training and test sets\nX = data['rhetorical_questions']\ny = data['category']\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)\n\n# Create a TF-IDF vectorizer\nvectorizer = TfidfVectorizer()\nX_train = vectorizer.fit_transform(X_train)\nX_test = vectorizer.transform(X_test)\n\n# Build and fit the model\nmodel = LogisticRegression()\nmodel.fit(X_train, y_train)\n\n# Make predictions and evaluate performance\nscore = model.score(X_test, y_test)"
+  },
+  {
+    "instruction": "Develop an algorithm in Python to determine the greatest common divisor (GCD) of two numbers.",
+    "input": "8, 12",
+    "output": "def gcd(a, b): \n    # base case \n    if (a == 0):  \n        return b \n    if (b == 0):  \n        return a \n  \n    # a is greater \n    if (a > b): \n        return gcd(a%b, b) \n          \n    return gcd(a, b%a) \n\nprint(gcd(8, 12)) # 4"
+  },
+  {
+    "instruction": "Create a k-means clustering algorithm in Python to cluster a given dataset.",
+    "input": "",
+    "output": "from sklearn.cluster import KMeans\n\ndef k_means_clustering(data, num_clusters):\n    kmeans = KMeans(n_clusters=num_clusters, random_state=0).fit(data)\n    labels = kmeans.labels_\n    return labels"
+  },
+  {
+    "instruction": "Code a function in Python that takes an array as input and returns an array with the elements in reverse order.",
+    "input": "",
+    "output": "def reverse_array(arr):\n    return arr[::-1]"
+  },
+  {
+    "instruction": "Write a Python program to compare two given strings and check if they are anagrams",
+    "input": "St1 = \"listen\"\nSt2 = \"silent\"",
+    "output": "from collections import Counter \n  \ndef is_anagram(str1, str2): \n    # Convert both strings to lowercase \n    str1 = str1.lower() \n    str2 = str2.lower() \n  \n    # Remove all whitespaces\n    str1 = str1.replace(\" \", \"\") \n    str2 = str2.replace(\" \", \"\") \n \n    # remove all special characters\n    for char in \"!'_,@#$%^&*():;\":\n        str1 = str1.replace(char, '')\n        str2 = str2.replace(char, '')\n\n    # sort the character of both strings \n    sorted_str1 = sorted(str1) \n    sorted_str2 = sorted(str2) \n  \n    # Check if both strings are equal or not \n    if(sorted_str1 == sorted_str2):  \n        return True \n    else: \n        return False \n  \n# Driver program \nstr1 = \"listen\"\nstr2 = \"silent\"\n\nif is_anagram(str1, str2): \n    print(\"The strings are anagrams.\") \nelse: \n    print(\"The strings are not anagrams.\")"
+  },
+  {
+    "instruction": "Using TinyDB, create a Python program for storing and searching values in a database.",
+    "input": "Not Applicable",
+    "output": "from tinydb import TinyDB, Query\n\n# Initialize database\ndb = TinyDB('my_db.json')\n\n# Insert data\ndb.insert({'name': 'John', 'age': 30, 'city': 'New York'})\ndb.insert({'name': 'Adam', 'age': 25, 'city': 'London'})\n\n# Fetch data\nsearch_results = db.search(Query().name == 'John')\nprint(search_results)  # [{'name': 'John', 'age': 30, 'city': 'New York'}]"
+  },
+  {
+    "instruction": "Create a program in Python which takes a list of tuples as an input, and prints true if it contains two elements that sum to 10.",
+    "input": "[(2, 8), (4, 6), (7, 3)]",
+    "output": "def checkSum(arr):\n    for (a, b) in arr:\n        if a + b == 10:\n            return True\n    return False\n\narr = [(2, 8), (4, 6), (7, 3)]\n\nprint(checkSum(arr)) # True"
+  },
+  {
+    "instruction": "Debug the following python code",
+    "input": "def compute_sum(x, y):\nreturn x + y",
+    "output": "def compute_sum(x, y):\n    return x + y # Added a missing indentation to the return statement."
+  },
+  {
+    "instruction": "Generate a solution to the Tower of Hanoi problem by writing a Python program.",
+    "input": "",
+    "output": "def hanoi(n, source, auxiliary, target):\n    if n > 0:\n        hanoi(n - 1, source, target, auxiliary)\n        target.append(source.pop())\n        hanoi(n - 1, auxiliary, source, target)"
+  },
+  {
+    "instruction": "Design a Python script for encrypting text using AES encryption.",
+    "input": "Example text: \"hello world\"",
+    "output": "import base64\nfrom Crypto.Cipher import AES\n\ndef encrypt(key, text):\n cipher = AES.new(key, AES.MODE_EAX)\n nonce = cipher.nonce\n ciphertext, tag = cipher.encrypt_and_digest(text.encode('utf-8'))\n return (nonce, tag, ciphertext)\n\nkey = b'Sixteen byte key'\ntext = \"hello world\"\n\nnonce, tag, ciphertext = encrypt(key, text)\n\nencoded_nonce = base64.b64encode(nonce)\nencoded_tag = base64.b64encode(tag)\nencoded_ciphertext = base64.b64encode(ciphertext)\n\nprint(\"Encrypted Text:\", encoded_nonce, encoded_tag, encoded_ciphertext)"
+  },
+  {
+    "instruction": "Rewrite a given Java class using Python syntax.",
+    "input": "Java class MyClass with fields \"x\" and \"y\":\n\npublic class MyClass {\n int x;\n int y;\n\n public MyClass(int x, int y) {\n  this.x = x;\n  this.y = y;\n }\n}",
+    "output": "class MyClass:\n def __init__(self, x, y):\n  self.x = x\n  self.y = y"
+  },
+  {
+    "instruction": "Construct a Python generator to yield all the permutations of a given list.",
+    "input": "",
+    "output": "def permutations(items): \n    if len(items) <=1: \n        yield items \n    else: \n        for i in range(len(items)): \n            for p in permutations(items[:i] + items[i+1:]): \n                yield (items[i],)+p"
+  },
+  {
+    "instruction": "Write Python code to include exception handling in this code.",
+    "input": "a = 1\nb = 0\nc = a / b\nprint (c)",
+    "output": "try:\n    a = 1\n    b = 0\n    c = a / b\n    print(c)\nexcept ZeroDivisionError:\n    print(\"Cannot divide by zero\")"
+  },
+  {
+    "instruction": "Optimize the following piece of code written in Python",
+    "input": "def add(a, b):\n    c = a + b\n    return c",
+    "output": "def add(a, b):\n    return a + b  # remove unnecessary intermediate variable 'c' and return the result directly."
+  },
+  {
+    "instruction": "Automate the process of building a Python program that takes in the names of two people as input, and outputs the age difference between them.",
+    "input": "John Doe, Jane Doe",
+    "output": "# Program to compute age difference between two persons\n\n# Input\nname1 = input('Enter name of first person: ')\nname2 = input('Enter name of second person: ')\n\n# Compute age difference\nages = {\n 'John Doe': 35,\n 'Jane Doe': 27\n}\n\ndiff = abs(ages[name1] - ages[name2])\n\n# Output\nprint(f'The age difference between {name1} and {name2} is {diff}.')"
+  },
+  {
+    "instruction": "Create a command line application using Python to calculate the Gini Index given a dataset.",
+    "input": "data = [[12,10,8],[8,7,6]]",
+    "output": "import numpy as np\n\ndef gini_index(data):\n    data = np.array(data)\n    n_instances = data.shape[0]\n    sum_rows = data.sum(axis=1)\n    squares_sum_rows = np.square(sum_rows) \n    squared_sum_all = np.square(data).sum()\n    numerator = n_instances * squared_sum_all - np.sum(squares_sum_rows)\n    denominator = n_instances * sum_rows.sum()\n    return 1 - numerator/denominator\n\ndata = [[12,10,8],[8,7,6]]\nprint(\"Gini index:\", gini_index(data))"
+  },
+  {
+    "instruction": "Write a python class to read an xml document and display the results.",
+    "input": "",
+    "output": "class XmlReader:\n    def __init__(self, file_name):\n        self.file_name = file_name\n    \n    def get_document(self):\n        with open(self.file_name, 'r') as f:\n            doc = f.read()\n            return doc\n    \n    def get_xml_data(self):\n        doc = self.get_document()\n        tree = ElementTree.fromstring(doc)\n        root = tree.getroot()\n        # iterate all elements and attributes\n        return root"
+  },
+  {
+    "instruction": "Write a Python program to multiply two given numbers and print their product",
+    "input": "num1 = 10\nnum2 = 8",
+    "output": "product = num1 * num2\nprint(product)"
+  },
+  {
+    "instruction": "Generate a machine learning model in Python to classify emails into spam and non-spam.",
+    "input": "",
+    "output": "from sklearn.naive_bayes import MultinomialNB \n\n# Initializing the model\nmodel = MultinomialNB()\n\n# Training the model\nmodel.fit(X_train,y_train)\n\n# Testing the model\ny_pred = model.predict(X_test)\n\n# Evaluating the model\naccuracy = model.score(X_test,y_test)"
+  },
+  {
+    "instruction": "Write a Python program to search a substring in a string without using built-in functions.",
+    "input": "string = ‘This is a test string’\nsubstring = ‘test’",
+    "output": "def search_substring(string, substring):\n  \"\"\"Function to search substring within a string\"\"\"\n  \n  matches = []\n  \n  # Iterate over the search string\n  for i in range(len(string)):\n    temp = \"\"\n    \n    # Iterate over the substring\n    for j in range(len(substring)):\n      if substring[j] == string[i + j]:\n        temp += substring[j]\n      else:\n        break\n        \n    if temp == substring:\n      matches.append(i)\n      \n  # Return the list of matches\n  return matches\n\nstring = 'This is a test string'\nsubstring = 'test'\nresult = search_substring(string, substring)\n\n# Print the result\nprint(result)\n# Output\n# [10]"
+  },
+  {
+    "instruction": "Write an example of a class definition in Python.",
+    "input": "",
+    "output": "class Employee:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n    \n    def get_name(self):\n        return self.name\n    \n    def get_age(self):\n        return self.age\n    \n    def set_age(self, age):\n        self.age = age"
+  },
+  {
+    "instruction": "Create a Python program to remove all punctuations from a given sentence.",
+    "input": "sentence = \"This is, a sentence with punctuations!\"",
+    "output": "import string \n  \ndef remove_punctuations(sentence):\n    punctuations = '''!()-[]{};:'\"\\,<>./?@#$%^&*_~'''\n    sentence_no_punctuations = \"\"\n    for char in sentence:\n        if char not in punctuations:\n            sentence_no_punctuations = sentence_no_punctuations + char \n  \n    return sentence_no_punctuations \n  \nsentence = \"This is, a sentence with punctuations!\"\nprint(remove_punctuations(sentence))\n # prints This is a sentence with punctuations"
+  },
+  {
+    "instruction": "Given a list of integers as input, write a Python code snippet to find the largest number.",
+    "input": "[9, 2, 6, 3, -5, 5, 7]",
+    "output": "max_num = -float('inf')\nfor num in [9, 2, 6, 3, -5, 5, 7]:\n    if num > max_num:\n        max_num = num\nprint(max_num)"
+  },
+  {
+    "instruction": "Design an Object-Oriented design in Python to represent a mobile phone in a virtual world.",
+    "input": "",
+    "output": "class Phone:\n  def __init__(self, name):\n    self.name = name\n    self.owner = None\n\n  def assign_owner(self, owner):\n    self.owner = owner\n\n  def use(self):\n    print(f\"{self.owner.name} is using {self.name}\")\n\nclass Person:\n  def __init__(self, name):\n    self.name = name\n    self.phone = None\n\n  def assign_phone(self, phone):\n    self.phone = phone\n    self.phone.owner = self\n\n  def use_phone(self):\n    if self.phone is not None:\n      self.phone.use()"
+  },
+  {
+    "instruction": "Create a custom vector class in Python with overloaded operators.",
+    "input": "",
+    "output": "class Vector:\n  def __init__(self, x, y, z):\n    self.x = x\n    self.y = y\n    self.z = z\n\n  def __add__(self, other): \n    x = self.x + other.x \n    y = self.y + other.y \n    z = self.z + other.z \n    return Vector(x, y, z) \n \n  def __sub__(self, other): \n    x = self.x - other.x \n    y = self.y - other.y \n    z = self.z - other.z \n    return Vector(x, y, z) \n  \n  def __mul__(self, other): \n    x = self.x * other.x \n    y = self.y * other.y \n    z = self.z * other.z \n    return Vector(x, y, z) \n  \n  def __div__(self, other): \n    x = self.x / other.x \n    y = self.y / other.y \n    z = self.z / other.z \n    return Vector(x, y, z) \n  \n  def __str__(self): \n    return \"Vector({}, {}, {})\".format(self.x, self.y, self.z)"
+  },
+  {
+    "instruction": "Optimize the python code below for memory efficiency.",
+    "input": "my_list = []\nfor i in range(20):\n    my_list.append(i**2)",
+    "output": "my_list = [i**2 for i in range(20)]"
+  },
+  {
+    "instruction": "Create a Python script that checks whether a given string is a palindrome.",
+    "input": "\"malayalam\"",
+    "output": "def isPalindrome(str): \n    # Run loop from 0 to len/2 \n    for i in range(0, len(str)//2): \n        if str[i] != str[len(str)-i-1]: \n            return False\n    return True\n  \n# main\nmyStr = \"malayalam\"\n\nans = isPalindrome(myStr) \n  \nif ans: \n    print(\"The given string is a palindrome\") \nelse: \n    print(\"The given string isn't a palindrome\")"
+  },
+  {
+    "instruction": "Optimize the following Python code to be as efficient as possible.",
+    "input": "def fun(N):\n result = 0\n for i in range(1, N+1):\n  for j in range(1, N+1):\n   result += i + j\n return result",
+    "output": "def fun(N):\n result = (N*(N+1))/2\n result *= (2 * N + 1)\n result /= 3\n return int(result)"
+  },
+  {
+    "instruction": "Create a Python program that takes a sentence as an input and replaces all the blank spaces with hyphens.",
+    "input": "The quick brown fox",
+    "output": "def replace_spaces(str):\n return str.replace(\" \", \"-\")\n \nprint(replace_spaces(\"The quick brown fox\"))  # Result: The-quick-brown-fox"
+  },
+  {
+    "instruction": "Write a Python Function that receives two strings and checks to see if one of them is an anagram of the other one.",
+    "input": "",
+    "output": "def is_anagram(s1, s2):\n    s1 = s1.replace(\" \",\"\").lower()\n    s2 = s2.replace(\" \",\"\").lower()\n    return sorted(s1) == sorted(s2)"
+  },
+  {
+    "instruction": "Generate an algorithm in Python that finds the maximum subarray sum of an array.",
+    "input": "[1, -2, 3, 4, -5, 6]",
+    "output": "def maxSubArraySum(arr):\n  max_so_far = 0 \n  max_ending_here = 0 \n  \n  for i in range(0, len(arr)): \n      max_ending_here = max_ending_here + arr[i] \n    \n      if (max_ending_here < 0): \n          max_ending_here = 0\n    \n      if (max_so_far < max_ending_here): \n          max_so_far = max_ending_here \n \n  return max_so_far \n\n# Test\narr = [1, -2, 3, 4, -5, 6]\nmax_sum = maxSubArraySum(arr)\n\nprint('Max Sum =', max_sum)"
+  },
+  {
+    "instruction": "Create a program that can generate anagrams from a set of words.",
+    "input": "['python', 'coding', 'programming']",
+    "output": "\"\"\"\nCreate a program to generate anagrams from a set of words.\n\n# Importing libraries\nimport itertools\n \ndef anagrams(words):\n    # Generate all permutations of the given words\n    anagram_list = [''.join(permutation) for permutation in itertools.permutations(words)]\n \n    # Return the list of anagrams\n    return anagram_list\n \n# Sample input\nwords = ['python', 'coding', 'programming']\n \n# Function call\nanagram_list = anagrams(words)\n \n# Printing output\nprint(anagram_list)\n\"\"\""
+  },
+  {
+    "instruction": "Create a Python program to capitalize every word with more than 3 characters in a string",
+    "input": "string = \"this is a test string\"",
+    "output": "def capitalize_more_than_3_characters(string):\n    words = string.split()\n    new_string = []\n    \n    for word in words:\n        if len(word) > 3:\n            new_string.append(word.capitalize())\n        else:\n            new_string.append(word)\n    \n    return \" \".join(new_string)\n    \nstring = \"this is a test string\"\nprint(capitalize_more_than_3_characters(string))"
+  },
+  {
+    "instruction": "In Python, parse a JSON string and return the value associated with a particular key",
+    "input": "JSON String: { \"key1\": \"value1\", \"key2\": \"value2\" }\nKey: \"key2\"",
+    "output": "import json\n\n# Create a json object from the string\njson_obj = json.loads('{\"key1\": \"value1\", \"key2\": \"value2\"}')\n\n#get the value for a particular key\nvalue = json_obj[\"key2\"]"
+  },
+  {
+    "instruction": "Create a function to generate a unique 6 digit number.",
+    "input": "",
+    "output": "# Python program to generate \n# a unique 6 digit number \nimport random \ndef generate_number(): \n      \n    # Choose a random number \n    # between 10000 and 99999 \n    random_number = random.randint(10000, 99999) \n  \n    # Return the random number \n    return random_number \n  \n# Driver Code \nif __name__ == \"__main__\": \n    print(generate_number())"
+  },
+  {
+    "instruction": "Create a Python Program to print the Fibonacci sequence up to n terms",
+    "input": "Print the Fibonacci sequence up to the 5th term",
+    "output": "def Fibonacci(n):\n      \n    # First and second number in the sequence \n    Fib_list = [0, 1]\n    \n    # Generate the Fibonacci sequence up to n terms\n    for i in range(2,n): \n        Fib_list.append(Fib_list[i-2] + Fib_list[i-1])\n    return Fib_list\n\n# Driver code \nn = 5\nprint(Fibonacci(n))"
+  },
+  {
+    "instruction": "Implement a gradient descent optimizer in Python.",
+    "input": "",
+    "output": "def gradient_descent_optimizer(X, y, theta, alpha, num_iterations):\n    m = len(y)\n    for i in range(num_iterations):\n        h = np.dot(X,theta)\n        loss = h-y\n        grad = np.dot(X.T,loss)/m\n        theta = theta - alpha*grad\n    return theta"
+  },
+  {
+    "instruction": "Create a Python program to generate an ISO8601-compliant string from a given date",
+    "input": "Date: 2020-07-15",
+    "output": "from datetime import datetime\n\ndate_str = '2020-07-15'\ndate = datetime.strptime(date_str, '%Y-%m-%d')\niso8601_str = date.isoformat()\n\nprint(iso8601_str)\n# Output: 2020-07-15T00:00:00"
+  },
+  {
+    "instruction": "Create an algorithm in Python that takes in a string and returns the number of words in the string.",
+    "input": "\"Hello world\"",
+    "output": "def word_count(s):\n\twords = s.split()\n\treturn len(words)\n\ns = \"Hello world\"\n\nprint(word_count(s)) # 2"
+  },
+  {
+    "instruction": "Modify the following Python code to add a try/except block to catch any errors.",
+    "input": "def add_numbers(a, b):\n return a + b",
+    "output": "def add_numbers(a, b):\n try:\n  sum = a + b\n except:\n  print(\"Error: Could not compute the sum of the numbers\")\n  return None\n else:\n  return sum"
+  },
+  {
+    "instruction": "Create a method in Python to search through a list and return all elements which are divisible by 5.",
+    "input": "[4, 9, 5, 20, 21, 33]",
+    "output": "def find_division_by_5(lst):\n    \"\"\"Search through a list and return all elements which are divisible by 5\"\"\"\n    result = []\n    for item in lst:\n        if item % 5 == 0:\n            result.append(item)\n    \n    return result\n    \nif __name__ == '__main__':\n    lst = [4, 9, 5, 20, 21, 33]\n    print(find_division_by_5(lst))"
+  },
+  {
+    "instruction": "Create a Python script to convert an input JSON string into a Python dictionary.",
+    "input": "{\"name\": \"John\", \"age\": 30, \"country\": \"USA\"}",
+    "output": "import json\n\ninput_string = '{\"name\": \"John\", \"age\": 30, \"country\": \"USA\"}'\n\npython_dict = json.loads(input_string)\nprint(python_dict) # Output: {'name': 'John', 'age': 30, 'country': 'USA'}"
+  },
+  {
+    "instruction": "Write a python code to print all prime numbers between 1 and a given number n.",
+    "input": "",
+    "output": "# Function to generate prime numbers between 1 and a given number n \ndef generate_prime_numbers(n): \n  \n    # Array for checking if a number is prime or not\n    prime_list = [True for i in range(n + 1)] \n    p = 2\n    while (p * p <= n): \n          \n        # If prime_list[p] is not changed, then it is a prime \n        if (prime_list[p] == True): \n              \n            # Update all multiples of p \n            for i in range(p * 2, n + 1, p): \n                prime_list[i] = False\n        p += 1\n  \n    # Collecting prime numbers \n    for p in range(2, n): \n        if prime_list[p]: \n            print(p)"
+  },
+  {
+    "instruction": "Generate a neural network in Python for understanding and generating natural language.",
+    "input": "No input",
+    "output": "import numpy as np\nimport tensorflow as tf\n\n# Create neural network model\nmodel = tf.keras.Sequential([\n    tf.keras.layers.Dense(64, activation='relu', input_shape=(1000,)),\n    tf.keras.layers.Dense(32, activation='relu'),\n    tf.keras.layers.Dense(16, activation='relu'),\n    tf.keras.layers.Dense(1, activation='sigmoid')\n])\n\n# Compile the model\nmodel.compile(optimizer='adam',\n              loss='binary_crossentropy',\n              metrics=['accuracy'])\n\n# Train the model\nmodel.fit(inputs, labels, epochs=100)"
+  },
+  {
+    "instruction": "Design a function in Python to return the number of possible paths from the top-left to the bottom-right in an mxn matrix.",
+    "input": "mxn = 3x3",
+    "output": "\"\"\"\nFunction in Python to return the number of possible paths from the top-left to the bottom-right in an mxn matrix\n\"\"\"\ndef num_of_paths(m, n): \n\t\n\t# Create a 2D table to store results of subproblems \n\tcount = [[0 for x in range(m)] for x in range(n)] \n\n\t# Count of paths to reach any cell in first column is 1 \n\tfor i in range(m): \n\t\tcount[i][0] = 1; \n\n\t# Count of paths to reach any cell in first column is 1 \n\tfor j in range(n): \n\t\tcount[0][j] = 1; \n\n\t# Calculate count of paths for other cells in bottom-up manner using\n\t# the recursive solution \n\tfor i in range(1, m): \n\t\tfor j in range(n): \n\n\t\t\t# By uncommenting the last part the code calculatest he total \n\t\t\t# possible paths if the diagonal Movements are allowed \n\t\t\tcount[i][j] = count[i-1][j] + count[i][j-1] #+ count[i-1][j-1]; \n\n\treturn count[m-1][n-1]; \n\n# Driver code\nm = 3\nn = 3\nprint(num_of_paths(m, n))"
+  },
+  {
+    "instruction": "Create a web scraper using Python that collects the title and content from the homepage of a given website.",
+    "input": "https://www.example.com as the target website.",
+    "output": "import requests\nimport bs4\n\nurl = 'https://www.example.com'\nr = requests.get(url)\nhtml = bs4.BeautifulSoup(r.text,\"html.parser\")\n\n# Find title\ntitle = html.find('title')\nprint(title.text)\n\n# Find content\ncontent = html.find('div', {'class': 'content'})\nprint(content.text)"
+  },
+  {
+    "instruction": "Create a function in Python to check if a number is prime.",
+    "input": "",
+    "output": "def check_prime(n):\n    if n < 2:\n        return False\n    else:\n        for i in range(2, int(n ** 0.5) + 1):\n            if n % i == 0:\n                return False\n        return True"
+  },
+  {
+    "instruction": "Write a Python program to scrape the HTML content of a website and extract all links.",
+    "input": "Website URL: http://example.com",
+    "output": "import requests\nfrom bs4 import BeautifulSoup\n\nurl = 'http://example.com'\n\nr = requests.get(url)\nsoup = BeautifulSoup(r.text, 'html.parser')\n\nlinks = [link.get('href') for link in soup.find_all('a')]\nprint(links)"
+  },
+  {
+    "instruction": "Write a for loop in Python to print out the squared value of the numbers from 0 to 10.",
+    "input": "",
+    "output": "for i in range(0,11):\n    print(i**2)"
+  },
+  {
+    "instruction": "Write a Python program that parses a web page and extracts all the hyperlinks.",
+    "input": "",
+    "output": "import re\nimport requests\n\nurl = 'https://www.example.com/'\n\nhtml = requests.get(url).text\n\nlinks = re.findall(\"<a href=\\\"(.*?)\\\"\", html)\n\nfor link in links:\n    print(link)"
+  },
+  {
+    "instruction": "Create a basic sentiment analysis model using Python and Scikit-learn.",
+    "input": "Not applicable",
+    "output": "import numpy as np\nimport pandas as pd\nfrom sklearn.feature_extraction.text import CountVectorizer\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LogisticRegression\n\n# Load data\ndata = pd.read_csv('sentiment.csv')\nX = data.text.values\ny = data.target.values\n\n# Split data into train and test sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# Vectorize the data\nvectorizer = CountVectorizer(max_features=5000)\nX_train_vectorized = vectorizer.fit_transform(X_train)\n\n# Create the model\nmodel = LogisticRegression()\nmodel.fit(X_train_vectorized, y_train)\n\n# Evaluate the model\nscores = model.score(vectorizer.transform(X_test), y_test)\nprint('Accuracy:', scores)"
+  },
+  {
+    "instruction": "Build an API endpoint with Python Flask to serve static machine learning (ML) models.",
+    "input": "Not applicable",
+    "output": "from flask import Flask, request, jsonify\nimport pickle\n\napp = Flask(__name__)\n\n@app.route('/api/models', methods=['GET'])\ndef get_models():\n    \"\"\"\n    API endpoint to get static machine learning models.\n    The endpoint should accept a model name\n    as a parameter and return the corresponding model as a response.\n    \"\"\"\n    model_name = request.args.get('model_name')\n    with open(f'models/{model_name}.pkl', 'rb') as f:\n        model = pickle.load(f)\n\n    return jsonify({'model_name': model_name, 'model': model})\n\nif __name__ == '__main__':\n    app.run()"
+  },
+  {
+    "instruction": "Write a type hinting program in Python for a templating extension for a web application.",
+    "input": "Not applicable",
+    "output": "import typehints\n\n@typehints.with_hints\ndef template(data):\n    # Retreive the data\n    greeting = data[\"greeting\"]\n    message = data[\"message\"]\n    name = data[\"name\"]\n\n    # Construct the greeting\n    greeting = f\"{greeting}, {name}!\"\n    # Construct the final message\n    message = f\"{greeting} {message}\"\n\n    # Return the message\n    return message\n\n@typehints.hints(\n    data=dict(\n               greeting=str,\n               message=str,\n               name=str\n           )\n)\ndef template_hinted(data):\n    pass # Implement your templating extension"
+  },
+  {
+    "instruction": "Create a basic Python application that prints out the prime numbers between 0 and 1000.",
+    "input": "Not applicable",
+    "output": "primes = []\n\nfor num in range(2, 1001):  \n  \n for i in range(2, num):\n  if (num % i) == 0:\n   break\n else:\n  primes.append(num)\n\nprint(primes)"
+  },
+  {
+    "instruction": "Modify the given code in Python so that it prints the given sentence \"Hello, World!\"",
+    "input": "print(\"Greetings\")",
+    "output": "print(\"Hello, World!\")"
+  },
+  {
+    "instruction": "Create a Python program to generate a random number between 1 to 100.",
+    "input": "",
+    "output": "import random\n\nnumber = random.randint(1, 100)\nprint(number)"
+  },
+  {
+    "instruction": "Use a GPT model to generate a Python function for calculating the area of a triangle.",
+    "input": "Not applicable",
+    "output": "def area_of_triangle(base, height):\n return 0.5 * base * height\n\n# Calculate the area of triangle\na = area_of_triangle(5, 4)\nprint('The area of the triangle is: ', a)"
+  },
+  {
+    "instruction": "Create a web API in Python to get records from a database table.",
+    "input": "Name of the database table: employee",
+    "output": "from flask import Flask, request, jsonify\nimport sqlite3\n\napp = Flask(name)\n\n@app.route('/api/v1/employees', methods=['GET'])\ndef get_employees():\n conn = sqlite3.connect('employees.db')\n cur = conn.cursor()\n data = cur.execute('SELECT * from employee').fetchall()\n conn.close()\n return jsonify(data)\n\nif name == 'main':\n app.run(debug=True)"
+  },
+  {
+    "instruction": "Using the input, write a Python code to find the armstrong number.",
+    "input": "153",
+    "output": "def is_armstrong_number(number):\n    result = 0\n    n = len(str(number))\n    for num in str(number):\n        result += int(num)**n\n    return result == number\n\nresult = is_armstrong_number(153)\nprint(result)"
+  },
+  {
+    "instruction": "Generate a Python program to find the intersection of two lists.",
+    "input": "",
+    "output": "def intersect(l1, l2):\n    return [x for x in l1 if x in l2]"
+  },
+  {
+    "instruction": "Generate a Python Sudoku solver. It should read the board (a list of 9x9 lists of the board's contents) as an input and output a list of 9x9 lists with all the numbers filled in.",
+    "input": "board = [\n [0, 0, 0, 0, 0, 0, 0, 0, 0],\n [0, 0, 0, 0, 0, 0, 0, 0, 0],\n [0, 0, 0, 0, 0, 0, 0, 0, 0], \n [0, 0, 0, 0, 0, 0, 0, 0, 0], \n [0, 0, 0, 0, 0, 0, 0, 0, 0],\n [0, 0, 0, 0, 0, 0, 0, 0, 0],\n [0, 0, 0, 0, 0, 0, 0, 0, 0], \n [0, 0, 0, 0, 0, 0, 0, 0, 0], \n [0, 0, 0, 0, 0, 0, 0, 0, 0]\n]",
+    "output": "def check_valid(board, row, col, num):\n for i in range(0, 9):\n  if board[row][i] == num: \n   return False\n for i in range(0, 9):\n  if board[i][col] == num:\n   return False \n row_block = row//3\n col_block = col//3\n \n for i in range(row_block*3, row_block*3+3):\n  for j in range(col_block*3, col_block*3+3):\n   if board[i][j] == num:\n    return False\n return True\n\ndef solve(board):\n for row in range(9): \n  for col in range(9):\n   if board[row][col] == 0:\n    for num in range(1, 10):\n     if check_valid(board, row, col, num):\n      board[row][col] = num\n      if solve(board):\n       return True\n      else:\n       board[row][col] = 0\n    return False\n return True\n   \nsolve(board)"
+  },
+  {
+    "instruction": "Is it possible to create a function in Python that takes a string as an argument and returns its length?",
+    "input": "",
+    "output": "def string_length(str):\n    return len(str)\n\nstring = \"Hello World\"\nlength = string_length(string)\nprint(\"Length of the string is: %d\" % length)"
+  },
+  {
+    "instruction": "Write a Python program that searches a given string for all its occurrences of a given substring in a case insensitive manner.",
+    "input": "string = \"Welcome To Programming\"\nsubstring = \"to\"",
+    "output": "import re\ndef search_substring(string, substring):\n  pattern = re.compile(substring, re.IGNORECASE) # case insensitive\n  match = re.search(pattern, string)\n  if match:\n    print(\"Found the substring at index\", match.start())\n  else:\n    print(\"The substring was not found\")\n\nstring = \"Welcome To Programming\"\nsubstring = \"to\"\n\nsearch_substring(string, substring) # prints \"Found the substring at index 8\""
+  },
+  {
+    "instruction": "Create a Python function to grade a multiple choice exam based on a given Answer key and a student's answers.",
+    "input": "Answer Key : [A, B, D, C, D]\nStudent's Answers: [A, A, C, B, D]",
+    "output": "def grade_exam(answer_key, student_answers):\n    score = 0\n    for i in range(len(answer_key)):\n        if answer_key[i] == student_answers[i]:\n            score += 1\n    \n    return score / len(answer_key) * 100\n\nanswer_key = ['A', 'B', 'D', 'C', 'D']\nstudent_answers = ['A', 'A', 'C', 'B', 'D']\n\nprint(\"Student's exam grade:\", grade_exam(answer_key, student_answers))"
+  },
+  {
+    "instruction": "Create an API route in Python that allows users to retrieve the top 5 most recent posts from a blog.",
+    "input": "Blog post data",
+    "output": "import datetime\n\n@app.route('/posts')\ndef get_posts():\n posts = Post.query \\\n .order_by(Post.created_at.desc()) \\\n .limit(5)\n return jsonify([{\n 'title': post.title,\n 'date': post.created_at.strftime('%Y-%m-%d'),\n 'body': post.body\n } for post in posts])"
+  },
+  {
+    "instruction": "Design a program in Python that takes a string as an input and checks whether all the vowels are present in the string or not.",
+    "input": "This is a test",
+    "output": "def check_vowels(string):\n    vowels = ['a','e','i','o','u']\n    for vowel in vowels:\n        if vowel not in string:\n            return False\n    return True\n\nprint(check_vowels('This is a test'))"
+  },
+  {
+    "instruction": "Create a Python function to detect a specific sequence",
+    "input": "Given a list of integers, list_a = [1, 6, 3, 7, 4], find the index of the sequence [3, 7]",
+    "output": "def find_sequence(list_a, pattern):\n    result = []\n    for i in range(len(list_a)-len(pattern)+1):\n        if list_a[i:i+len(pattern)] == pattern:\n            result.append(i)\n    return result"
+  },
+  {
+    "instruction": "Create a web crawler written in Python that scrapes hotel reviews from an online travel website.",
+    "input": "Not applicable",
+    "output": "import requests\nfrom bs4 import BeautifulSoup\n\ndef scraper(url):\n  response = requests.get(url)\n  html = response.content\n  soup = BeautifulSoup(html, 'lxml')\n\n  reviews_container = soup.find_all('div', class_='review_container')\n  \n  reviews = []\n  for review in reviews_container:\n    rating = review.find('span', attrs={'class': 'rating'}).text\n    description = review.find('p', class_='review_description').text\n    reviews.append((rating, description))\n\n  return reviews\n\nurl = 'https://www.example.com/hotels/reviews'\nreviews = scraper(url)"
+  },
+  {
+    "instruction": "Design an AI agent in Python to play a game of Tic-Tac-Toe.",
+    "input": "",
+    "output": "import random\nimport numpy as np\n\nBOARD_SIZE = 3\nPLAYER = 1  # player is X\nAI = 2  # AI is O\n\ndef create_board():\n  board = np.zeros((BOARD_SIZE, BOARD_SIZE)) # board is 3x3 array of 0's\n  return board\n\ndef valid_space(board, position):\n  if position[0] < 0 or position[0] >= BOARD_SIZE:\n    return False\n  elif position[1] < 0 or position[1] >= BOARD_SIZE:\n    return False\n  elif board[position[0], position[1]] != 0:\n    return False\n  else:\n    return True\n\ndef make_move(board, pos, symbol):\n  board[pos[0], pos[1]] = symbol\n\ndef ai_move(board, symbol):\n  pos = random.choice(list(zip(*np.where(board == 0)))) # pick random empty space\n  make_move(board, pos, symbol)\n\ndef player_move(board, symbol):\n  pos = input('Enter your move (row column): ').split()\n  pos = [int(i) for i in pos]\n  if not valid_space(board, pos):\n    print('Invalid move!')\n    return False\n  else:\n    make_move(board, pos, symbol)\n    return True\n\n\ndef main():\n  board = create_board()\n  winner = 0\n  turn = PLAYER\n  complete = False\n\n  while not complete and not winner:\n    if turn == PLAYER:\n      player_move(board, PLAYER)\n      turn = AI\n    else:\n      ai_move(board, AI)\n      turn = PLAYER\n    winner = check_winner(board)\n    complete = check_complete(board)\n    print_board(board)\n\n  if winner == PLAYER:\n    print('Player wins')\n  elif winner == AI:\n    print('AI wins')\n  else:\n    print('Draw')\n\ndef check_complete(board):\n  if 0 in board:\n    return False\n  else:\n    return True\n\ndef check_winner(board):\n  for i in range(BOARD_SIZE):\n    if np.all(board[i] == PLAYER):\n      return PLAYER\n    elif np.all(board[i] == AI):\n      return AI\n\n  for j in range(BOARD_SIZE):\n    if np.all(board[:,j] == PLAYER):\n      return PLAYER\n    elif np.all(board[:,j] == AI):\n      return AI\n\n  diag1 = np.diag(board)\n  diag2 = np.diag(np.fliplr(board))\n  if np.all(diag1 == PLAYER):\n    return PLAYER\n  elif np.all(diag1 == AI):\n    return AI\n  elif np.all(diag2 == PLAYER):\n    return PLAYER\n  elif np.all(diag2 == AI):\n    return AI\n\n  else:\n    return 0\n\ndef print_board(board):\n  for i in range(BOARD_SIZE):\n    for j in range(BOARD_SIZE):\n      if board[i,j] == PLAYER:\n        print('X ', end=\"\")\n      elif board[i,j] == AI:\n        print('O ', end=\"\")\n      else:\n        print('  ', end=\"\")\n    print()\n\nif __name__ == \"__main__\":\n  main()"
+  },
+  {
+    "instruction": "Create a Python program for building a chatbot. The program should include a chat window and should respond to simple questions with predefined answers.",
+    "input": "Not applicable",
+    "output": "import re \nimport random \n\n# define the bot \nclass Bot: \n    def __init__(self): \n        self.greets = ['hey', 'hello', 'hi', 'greetings'] \n        self.responses = ['Hello!', 'Hi there!', 'Greetings!', 'Nice to meet you!']\n\n    # process message using regular expression     \n    def process_message(self, message): \n        pattern = re.search(\"(?:hey|hello|hi|greetings)(.*)\", message) \n\n        if pattern: \n            # generate a random response \n            response = random.choice(self.responses) \n            # return the response \n            return response\n\n# create an instance of the Bot class \nbot = Bot() \n\nwhile True:\n    # enter the message \n    print('You:', end='') \n    message = input()\n\n    # process the message \n    response = bot.process_message(message) \n    # print the response \n    print('Bot:', response)"
+  },
+  {
+    "instruction": "Write a Python program to generate a random password",
+    "input": "",
+    "output": "import string\nimport random\n \ndef generate_password(length):\n    chars = string.ascii_letters + string.digits\n    password = \"\".join(random.choice(chars) for i in range(length))\n    \n    return password\n\nlength = int(input(\"Enter the desired password length: \"))\npassword = generate_password(length)\n\nprint(\"Generated password is:\", password)"
+  },
+  {
+    "instruction": "Code a Monte-Carlo simulation in Python.",
+    "input": "",
+    "output": "import random\n\n# Monte Carlo simulation to estimate an integral\n# The integral can be of any function f(x)\n\n# N is the number of samples to take\n# a, b is the interval\nN = 10000\na, b = 0.0, 1.0\n\n# initialize a variable to store the running sum\nsum = 0\n\n# take N samples\nfor i in range(N):\n    x = random.uniform(a, b)\n    sum += f(x) \n\n# compute the estimated integral\nestimated_integral = (b - a) / N * sum \n\nprint(\"The estimated integral is: \", estimated_integral)"
+  },
+  {
+    "instruction": "Use Python to build a model to predict the stock prices of a publicly traded company.",
+    "input": "Not applicable",
+    "output": "# Importing the libraries\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport pandas as pd\n\n# Importing the dataset\ndataset = pd.read_csv('stock_prices.csv')\n\n# Preprocessing the data\n# Convert the date column to datetime\ndataset['date'] = pd.to_datetime(dataset['date'])\n\n# Select the feature columns and target column\nX = dataset.iloc[:, 1:-1].values\ny = dataset.iloc[:, -1].values\n\n# Splitting the dataset into the Training set and Test set\nfrom sklearn.model_selection import train_test_split\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)\n\n# Fitting the model to the Training set\n# Importing the regressor\nfrom sklearn.svm import SVR\n\n# Create regressor object\nregressor = SVR(kernel='rbf')\n\n# Fit the regressor to the training dataset\nregressor.fit(X_train, y_train)\n\n# Predicting the Test set results\ny_pred = regressor.predict(X_test)\n\n\n# Calculate the RMSE (Root Mean Squared Error)\nfrom sklearn.metrics import mean_squared_error\nrmse = (mean_squared_error(y_test, y_pred)**0.5)\n\n# Print the RMSE\nprint('Root Mean Squared Error =', rmse)"
+  },
+  {
+    "instruction": "Write a Python program for predicting the score of a tennis match given the probabilities of various outcomes.",
+    "input": "An array of 8 floats representing the probabilities for a player to win a point on their serve, break the opponent's serve, win a game on their serve and break the opponent's serve.",
+    "output": "import numpy as np\n\ndef predict_match_score(probabilities):\n    p_serve_win = probabilities[0]\n    p_opp_serve_win = probabilities[1]\n    p_serve_game_win = probabilities[2]\n    p_opp_serve_game_win = probabilities[3]\n\n    expected_score_serve = p_serve_game_win * (4*p_serve_win + 3*p_opp_serve_win)\n    expected_score_opp_serve = p_opp_serve_game_win*(4*p_opp_serve_win + 3*p_serve_win)\n\n    total_expected_score = expected_score_serve + expected_score_opp_serve\n    return total_expected_score\n\nprobabilities = np.random.random(4)\nprint(predict_match_score(probabilities))"
+  },
+  {
+    "instruction": "Create a Python function to return the maximum number of valid parentheses in a given expression.",
+    "input": "expression = \"((()))()\"",
+    "output": "def max_valid_parenthesis(expression):\n    max_value = 0\n    # Keep a count of left parentheses\n    count = 0\n    for char in expression:\n        if char == '(':\n            count += 1\n            max_value = max(max_value, count)\n        else:\n            count -= 1\n\n    return max_value"
+  },
+  {
+    "instruction": "Come up with a complex problem written in Python to be solved in a parallel fashion.",
+    "input": "",
+    "output": "import multiprocessing as mp\nfrom multiprocessing import Pool\n\n# Main function to process data\ndef process_data(data):\n    # Perform complex processing on data\n    processed_data = complex_processing(data)\n    return process_data \n\n# Function to be called in parallel\ndef parallel_fn(data):\n    # Split data\n    data_slice = np.array_split(data, num_procs)\n    # Define a pool of process\n    pool = Pool(processes=num_procs)\n    # Execute process_data in parallel\n    processed_data = pool.map(process_data, data_slice)\n    # Join list of results\n    results = np.concatenate(processed_data)\n    # Close the pool\n    pool.close()\n    # Return results\n    return results"
+  },
+  {
+    "instruction": "Rewrite the following Java program in Python to calculate the area of the triangle.",
+    "input": "class Area { \n    double area(double b, double h) \n    { \n        return 0.5 * b * h; \n    } \n}",
+    "output": "def area(b, h):\n    return 0.5 * b * h"
+  },
+  {
+    "instruction": "Write code to determine the type of a given variable in Python.",
+    "input": "",
+    "output": "def get_type(var):\n    return type(var).__name__"
+  },
+  {
+    "instruction": "Write a Python program to find the missing number from a given list.",
+    "input": "[2, 3, 1, 5]",
+    "output": "def find_missing_number(list_of_numbers):\n    max_number = max(list_of_numbers)\n    total_sum = (max_number * (max_number + 1)) // 2\n    actual_sum = 0\n    \n    for number in list_of_numbers:\n        actual_sum += number\n    return total_sum - actual_sum\n\nlist_of_numbers = [2, 3, 1, 5]\nmissing_number = find_missing_number(list_of_numbers)\nprint(\"Missing number: \", missing_number)"
+  },
+  {
+    "instruction": "Create a Python program to print out the given string in all uppercase.",
+    "input": "\"This is a test string\"",
+    "output": "string = \"This is a test string\"\n\nprint(string.upper())"
+  },
+  {
+    "instruction": "Program a function in Python that takes a string and capitalizes the first letter of each word.",
+    "input": "",
+    "output": "def capitalize_words(string):\n  words = string.split()\n  capitalized_words = [word.capitalize() for word in words]\n  return ' '.join(capitalized_words)"
+  },
+  {
+    "instruction": "Create a program in Python that checks if a number is prime or not.",
+    "input": "",
+    "output": "def is_prime(n):\n    '''\n    Function to check if the given number is a prime\n    '''\n    if n < 2:\n        return False\n\n    for i in range(2, n):\n        if n % i == 0:\n            return False\n\n    return True"
+  },
+  {
+    "instruction": "Find and remove the unnecessary code in the following Python code snippet.",
+    "input": "def get_data(url):\n    data = [] # create an empty list\n    response = requests.get(url)\n    if response.status_code == 200:\n        for item in response.json():\n            data.append(item)# add to the list",
+    "output": "def get_data(url):\n    data = []\n    response = requests.get(url)\n    if response.status_code == 200:\n        data = response.json()"
+  },
+  {
+    "instruction": "Design a class in python for a student that has the following attributes: name, age, school, grade",
+    "input": "",
+    "output": "class Student:\n \n    def __init__(self, name, age, school, grade):\n        self.name = name\n        self.age = age\n        self.school = school\n        self.grade = grade\n        \n    def get_name(self):\n        return self.name\n        \n    def get_age(self):\n        return self.age\n    \n    def get_school(self):\n        return self.school\n    \n    def get_grade(self):\n        return self.grade"
+  },
+  {
+    "instruction": "Create a Python script to predict the stock price of a given company in the next 30 days.",
+    "input": "Input data: Historical stock prices of a particular company",
+    "output": "\"\"\"\nPredicts the stock price of a given company in the next 30 days\n\"\"\"\n\nimport pandas as pd\nimport matplotlib.pyplot as plt\nfrom sklearn.linear_model import LinearRegression\nimport numpy as np\n\n#Get the historical stock prices\ndata = pd.read_csv('historical_stock_prices.csv')\n\n#Train the linear regression model using the historical stock prices\nX = data['date'].values.reshape(-1,1)\ny = data['price'].values.reshape(-1,1)\nlinear_regressor = LinearRegression()  \nlinear_regressor.fit(X, y)\n\n#Predict the stock prices for the next 30 days\nnext_30_days = np.arange(X.flatten()[-1]+1, X.flatten()[-1]+30, 1).reshape(-1,1)\ny_pred = linear_regressor.predict(next_30_days)\n\n#Print the predicted stock prices\nprint(\"The predicted stock prices for the next 30 days are:\")\nfor i in range(30):\n  print(\"Date:\", next_30_days[i][0],\"Price:\",y_pred[i][0])"
+  },
+  {
+    "instruction": "Create a Python program to tokenize a sentence and calculate the frequency of each word in the sentence.",
+    "input": "The quick brown fox jumps over the lazy dog",
+    "output": "import nltk\n\nsentence = \"The quick brown fox jumps over the lazy dog\"\n\nwords = nltk.word_tokenize(sentence)\n\nword_freq = {}\n\nfor word in words:\n if word in word_freq:\n  word_freq[word] += 1\n else:\n  word_freq[word] = 1\n\nprint(word_freq)"
+  },
+  {
+    "instruction": "Upgrade the following code so that it runs on Python 3",
+    "input": "#This code runs on python 2\nprint \"Hello World!\"",
+    "output": "print(\"Hello World!\")"
+  },
+  {
+    "instruction": "Write a python script to remove all occurrences of a particular string from a given text.",
+    "input": "Text: “I like cats, cats and cats”, String: “cats”",
+    "output": "text = \"I like cats, cats and cats\"\nstring = \"cats\"\n\n# Replace all occurrences of the string with an empty string\nmodified_text = text.replace(string, \"\")\nprint(modified_text)\n# Output: \"I like , and \""
+  },
+  {
+    "instruction": "Develop an AI Application in Python to detect facial emotion.",
+    "input": "",
+    "output": "# import relevant libraries\nimport cv2\nimport numpy as np\n\n# load the pre-trained CascadeClassifier model\nface_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')\n\n# define the facial emotion recognizer\ndef recognize_emotion(img):\n    # convert the image to grayscale for better processing\n    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)\n    # detect the faces\n    faces = face_cascade.detectMultiScale(gray, 1.3, 5)\n    # if no face is detected\n    if len(faces) == 0:\n        return None, None\n    # if faces are detected\n    else:\n        # extract the coordinates of the face\n        x,y,w,h = faces[0] \n        # crop the detected face\n        face = gray[y:y+h, x:x+w]\n        # Return both the face and coordinates\n        return face, faces[0]\n\n# capture the video from the webcam \ncam = cv2.VideoCapture(0)\n\nwhile True:\n    # Read the frame\n    ret, img = cam.read()\n    # Detect the faces\n    face, rect = recognize_emotion(img)\n    # Draw the detected rectangle\n    if rect is not None:\n        (x,y,w,h) = rect\n        cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2) \n    # Draw the resulting image\n    cv2.imshow('FaceDetection', img)\n    # Stop if escape key is pressed\n    if cv2.waitKey(1) == 27: \n        break \n# Release the VideoCapture object\ncam.release()"
+  },
+  {
+    "instruction": "Perform linear regression on a set of data points using only basic Python syntax and libraries.",
+    "input": "X=[1,3,4,5]\nY=[0,3,2,5]",
+    "output": "# import the necessary libraries\nimport numpy as np\nfrom sklearn.linear_model import LinearRegression\n\n# create the arrays\nx = np.array(X).reshape(-1,1)\ny = np.array(Y).reshape(-1,1)\n\n# create and fit the model\nmodel = LinearRegression()\nmodel.fit(x, y)\n\n# print the model coefficients\nprint('Intercept: ', model.intercept_)\nprint('Coefficient: ', model.coef_)"
+  },
+  {
+    "instruction": "Create a Python script that searches the string for a given pattern and returns the starting position.",
+    "input": "\"Hello world\"",
+    "output": "def find_pattern_position(string, pattern):\n    for i in range(len(string) - len(pattern) + 1):\n        if string[i:i+len(pattern)] == pattern:\n            return i\n    else:\n        return -1\n\nposition = find_pattern_position(\"Hello world\", \"world\")\nprint(position)"
+  },
+  {
+    "instruction": "Compose a Python program to train a neural network using a given dataset.",
+    "input": "The dataset contains 10,000 examples and 5 features.",
+    "output": "import numpy as np\nimport keras\nfrom keras.models import Sequential\nfrom keras.layers import Dense\n\n# define the model\nmodel = Sequential()\nmodel.add(Dense(5, activation='relu', input_dim=5))\nmodel.add(Dense(8, activation='relu'))\nmodel.add(Dense(1, activation='sigmoid'))\n\n# compile the model\nmodel.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])\n\n# load the data\nX = np.loadtxt('data.txt', delimiter=',')\n\n# fit the model with input data\nmodel.fit(X, y, epochs=50)"
+  },
+  {
+    "instruction": "Create a function in Python that takes an integer argument and returns True if the argument is an even number and False if it is an odd number.",
+    "input": "",
+    "output": "def even_odd(n):\n    if n % 2 == 0:\n        return True\n    else:\n        return False"
+  },
+  {
+    "instruction": "Using the Python turtle library, create a drawing of a spider web on the screen.",
+    "input": "",
+    "output": "import turtle\n\n# Create a starting point\nturtle.setup(400, 400)\nturtle.penup()\nturtle.backward(150)\nturtle.pendown()\n\n# Create the spiderweb\nfor _ in range(10):\n    turtle.forward(50)\n    turtle.right(80)\n\n# Hide the turtle\nturtle.hideturtle()\nturtle.done()"
+  },
+  {
+    "instruction": "Build an algorithm in Python for predicting the price of a stock given historical data and the current market conditions.",
+    "input": "Not applicable",
+    "output": "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n# load the dataset\ndataset = pd.read_csv('stock_data.csv')\n\n# Exploratory data analysis\ndataset.describe()\n\nsns.heatmap(dataset.corr(), annot=True)\n\n# Create feature and target variables\nX = dataset.iloc[:, 1:-1]\ny = dataset.iloc[:, -1]\n\n# Split the data into train and test data\nfrom sklearn.model_selection import train_test_split\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2,random_state=0)\n\n# Feature scaling\nfrom sklearn.preprocessing import StandardScaler\nsc = StandardScaler()\nX_train = sc.fit_transform(X_train)\nX_test = sc.transform(X_test)\n\n# Train model\nfrom sklearn.linear_model import LinearRegression\nregressor = LinearRegression()\nregressor.fit(X_train, y_train)\n\n# Test the model\ny_pred = regressor.predict(X_test)\n\n# Evaluate the model\nfrom sklearn.metrics import r2_score\nr2_score(y_test, y_pred)"
+  },
+  {
+    "instruction": "Develop a code to predict the sentiment of a sentence using a pre-trained sentiment analysis model in Python.",
+    "input": "",
+    "output": "from textblob import TextBlob\nfrom textblob.sentiments import NaiveBayesAnalyzer\n\n# Create a TextBlob object using the NaiveBayesAnalyzer\nsentiment_analyzer = TextBlob(analyzer=NaiveBayesAnalyzer())\n\n# Method to predict the sentiment of a given sentence\ndef predict_sentiment(sentence):\n    # Get the polarity score of the sentence\n    polar_score = sentiment_analyzer.sentiment.polarity\n    # class the sentiment of the given sentence\n    if polar_score > 0:\n        sentiment = \"positive\"\n    elif polar_score == 0:\n        sentiment = \"neutral\"\n    else:\n        sentiment = \"negative\"\n    # Print out the sentiment of the given sentence\n    print(\"The sentiment of the given sentence is:\", sentiment)\n\nsentence = \"This movie is amazing!\"\npredict_sentiment(sentence)"
+  },
+  {
+    "instruction": "Generate a python code to calculate the factorial for a given number.",
+    "input": "num = 5",
+    "output": "def factorial(number):\n    if number == 0:\n        return 1\n    else:\n        return number * factorial(number -1)\n\nfactorial(num)"
+  },
+  {
+    "instruction": "Write a Python program that takes a text string as input and returns the number of words in it.",
+    "input": "text = 'This is a sample string.'",
+    "output": "def count_words(text):\n    words = text.split()\n    return len(words)"
+  },
+  {
+    "instruction": "Generate a Python program to detect outliers in a dataset using the interquartile range (IQR) method.",
+    "input": "A dataset with 10 columns and 200 rows.",
+    "output": "# importing required libraries\nimport pandas as pd\n\n# read csv file into a dataframe and check column types\ndf = pd.read_csv('dataset.csv')\n\n# get quartiles\nQ1 = df.quantile(0.25)\nQ3 = df.quantile(0.75)\nIQR = Q3 - Q1\n\n# remove outliers\ndf_no_outliers = df[~((df < (Q1 - 1.5 * IQR)) | (df > (Q3 + 1.5 * IQR))).any(axis=1)]\n\n# get the count of outliers\noutliers_count = df.shape[0] - df_no_outliers.shape[0]\n\n# prints the count of outliers\nprint(\"Count of outliers:\", outliers_count)"
+  },
+  {
+    "instruction": "Create a class in Python to store and manage a customer's orders.",
+    "input": "",
+    "output": "class Order:\n    def __init__(self):\n        self.id = None\n        self.items = []\n        self.quantities = []\n        self.total_amount = 0\n    \n    def add_item(self, item, quantity):\n        self.items.append(item)\n        self.quantities.append(quantity)\n        self.total_amount += item.price * quantity \n    \n    def get_total_amount(self):\n        return self.total_amount"
+  },
+  {
+    "instruction": "Create a Python code to calculate the edit distance between two given strings.",
+    "input": "",
+    "output": "def edit_distance(s1, s2):\n    if len(s1) > len(s2):\n        s1, s2 = s2, s1\n\n    distances = range(len(s1) + 1)\n    for i2, c2 in enumerate(s2):\n        distances_ = [i2+1]\n        for i1, c1 in enumerate(s1):\n            if c1 == c2:\n                distances_.append(distances[i1])\n            else:\n                distances_.append(1 + min((distances[i1], distances[i1 + 1], distances_[-1])))\n        distances = distances_\n    return distances[-1]"
+  },
+  {
+    "instruction": "Design a python program that would generate a random password",
+    "input": "",
+    "output": "import random\n\ndef generatePassword():\n    charSet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*'\n    password = ''\n    for x in range(8):\n        password += random.choice(charSet)\n    return password"
+  },
+  {
+    "instruction": "Write a Python program to create a directory named 'myDir'.",
+    "input": "",
+    "output": "import os\nif not os.path.exists('myDir'):\n    os.mkdir('myDir')"
+  },
+  {
+    "instruction": "Create a function in python to print a string in reverse.",
+    "input": "",
+    "output": "def reverse_string(string): \n  string = string[::-1] \n  return string \n  \nprint(reverse_string('hello'))"
+  },
+  {
+    "instruction": "Write a Python program to determine if a given point (x,y) is inside or outside a given circle.",
+    "input": "point = (2,2), center=(0, 0), radius=5",
+    "output": "def isInsideCircle(point, center, radius):\n    x = point[0] - center[0]\n    y = point[1] - center[1]\n    distance = (x**2 + y**2)**0.5\n    if distance <= radius:\n        return True\n    return False\n\npoint = (2,2)\ncenter = (0, 0)\nradius = 5\nisInsideCircle = isInsideCircle(point, center, radius)\n\nif isInsideCircle:\n    print(\"Point is inside the circle.\")\nelse:\n    print(\"Point is outside the circle.\")"
+  },
+  {
+    "instruction": "Design a python class for a person object.",
+    "input": "",
+    "output": "class Person:\n    def __init__(self, first_name, last_name, age, gender):\n        self.first_name = first_name\n        self.last_name = last_name\n        self.age = age\n        self.gender = gender\n\n    def get_name(self):\n        return f\"{self.first_name} {self.last_name}\"\n    \n    def get_age(self):\n        return self.age\n    \n    def get_gender(self):\n        return self.gender"
+  },
+  {
+    "instruction": "Develop a web scraper in Python which can extract information from HTML page.",
+    "input": "Not applicable",
+    "output": "import requests\nfrom bs4 import BeautifulSoup\n \ndef scrape_data(url):\n response = requests.get(url)\n \n if response.status_code == 200:\n  html_data = response.text\n  soup = BeautifulSoup(html_data, 'html.parser')\n  \n  # extract data here\n \n else:\n  print(\"Invalid response!\")\n \nscrape_data('https://example.com')"
+  },
+  {
+    "instruction": "Write a for-loop in python which prints the first 10 perfect squares.",
+    "input": "",
+    "output": "for i in range(10): \n    print(i*i, end = \" \")"
+  },
+  {
+    "instruction": "Create a Python script to find the first ten perfect squares.",
+    "input": "",
+    "output": "nums = [x*x for x in range(1,11)] \nprint(\"The first 10 perfect squares are: \", nums)"
+  },
+  {
+    "instruction": "Write a Python script to convert temperatures from Fahrenheit to Celsius.",
+    "input": "",
+    "output": "def fahrenheit_to_celsius(fahrenheit):\n    celsius = (fahrenheit - 32) * 5/9\n    return celsius"
+  },
+  {
+    "instruction": "Create a function in Python to construct the following pattern",
+    "input": "The maximum number of lines is 10",
+    "output": "def construct_pattern(n):\n    for i in range(1,n+1):\n        for j in range(i):\n            print(\"*\",end=\"\")\n        print(\"\")\n    for i in range(n-1,0,-1):\n        for j in range(i):\n            print(\"*\",end=\"\")\n        print(\"\")"
+  },
+  {
+    "instruction": "Create an HTML table with a two columns using Python.",
+    "input": "",
+    "output": "from lxml import etree\n \n# Create the root element\nroot = etree.Element('table')\n \n# Create two columns\ntable_elem = etree.SubElement(root, 'column')\ntable_elem.set('name', 'FirstName')\ntable_elem = etree.SubElement(root, 'column')\ntable_elem.set('name', 'LastName')\n \n# Print the whole XML\nprint(etree.tostring(root, pretty_print=True).decode())"
+  },
+  {
+    "instruction": "Design a function to calculate the volume of a cube in Python.",
+    "input": "",
+    "output": "def cube_volume(side_length):\n  volume = side_length ** 3\n  return volume"
+  },
+  {
+    "instruction": "Design a graphical user interface application in Python to display today's date in the format DD/MM/YYYY.",
+    "input": "",
+    "output": "import datetime\nimport tkinter\n\nroot=tkinter.Tk()\nroot.title(\"Date\")\n\n# gets current date\ntoday = datetime.datetime.now()\n# formats date\ndate_string = today.strftime(\"%d/%m/%Y\")\n\n# creates label with date\ncurrent_date_label=tkinter.Label(root, text=date_string, fg=\"blue\")\n# pack/add label to app\ncurrent_date_label.pack()\n\n# run application\nroot.mainloop()"
+  },
+  {
+    "instruction": "Create a Python program to implement a Priority Queue.",
+    "input": "",
+    "output": "class PriorityQueue(object):\n    def __init__(self):\n        self.queue = []\n\n    def __str__(self):\n        return ' '.join([str(i) for i in self.queue])\n\n    def is_empty(self):\n        return len(self.queue) == []\n    \n    def insert(self, data):\n        self.queue.append(data)\n    \n    def delete(self):\n        try:\n            max = 0\n            for i in range(len(self.queue)):\n                if self.queue[i] > self.queue[max]:\n                    max = i\n            item = self.queue[max]\n            del self.queue[max]\n            return item\n        except IndexError:\n            print()\n            exit()"
+  },
+  {
+    "instruction": "Create a web scraper using Python that can scrape a simple, single-page website and return the data.",
+    "input": "https://www.example.com/",
+    "output": "from urllib.request import Request, urlopen\nfrom bs4 import BeautifulSoup\n\nrequest = Request('https://www.example.com/')\nresponse = urlopen(request)\nhtml_doc = response.read()\nsoup = BeautifulSoup(html_doc, 'html.parser')\n\n# Get the title of the web page\ntitle_tag = soup.find('title')\nprint('Title:', title_tag.string) \n\n# Get the list of headlines\nheadline_tags = soup.find_all('h2')\nheadlines = [headline_tag.string for headline_tag in headline_tags]\nprint('Headlines:', headlines)\n\n# Get the list of links\nlink_tags = soup.find_all('a')\nlinks = [link_tag['href'] for link_tag in link_tags]\nprint('Links:', links)"
+  },
+  {
+    "instruction": "Edit the given Python program to print 'Happy Holidays' 10 times.",
+    "input": "for i in range(10):\n    print('Hello World')",
+    "output": "for i in range(10):\n    print('Happy Holidays')"
+  },
+  {
+    "instruction": "Create a method in Python to calculate the Euclidean distance between two points.",
+    "input": "",
+    "output": "def euclidean_distance(point_a, point_b):\n    sum_squares = 0\n    for i in range(len(point_a)):\n        sum_squares += (point_a[i] - point_b[i]) ** 2\n    return (sum_squares ** 0.5)\n\npoint_a = (1, 2, 3)\npoint_b = (4, 5, 6)\n\ndistance = euclidean_distance(point_a, point_b)\nprint(\"Distance between points: {}\".format(distance)) #5.19615"
+  },
+  {
+    "instruction": "Create a program that returns the number of the occurrences of an element in the given list",
+    "input": "nums = [1, 2, 3, 2, 3, 2, 4]",
+    "output": "# Python 3 program to count the number of occurrences \n# of an element in the given list\n\n# function to count the number of occurrences \ndef countOccurrences(nums, query):\n    count = 0\n    for num in nums:\n        if query == num:\n            count = count + 1\n    return count\n\n# Driver code \nnums = [1, 2, 3, 2, 3, 2, 4]\n\n# Function Call\nquery = 2\nprint(\"{0} occurs {1} times\".format(query, countOccurrences(nums, query)))"
+  },
+  {
+    "instruction": "Develop a game trajectory algorithm in Python for a two-dimensional environment.",
+    "input": "",
+    "output": "# Define a function for trajectory algorithms\ndef trajectory_algorithm(start_point, end_point):\n    # Set the dampening parameter, which determines how far the ball moves in each step\n    d = 0.1\n    # Find the distance between start and end points\n    dist = (end_point[0] - start_point[0])**2 + (end_point[1] - start_point[1])**2\n    # Define a loop to iterate through\n    while dist > (d ** 2):\n        # Move the ball closer to the end point\n        start_point[0] = start_point[0] + ((end_point[0] - start_point[0]) * d)\n        start_point[1] = start_point[1] + ((end_point[1] - start_point[1]) * d)\n        # Redefine the distance for the next iteration\n        dist = (end_point[0] - start_point[0])**2 + (end_point[1] - start_point[1])**2\n    # Return the final point\n    return start_point"
+  },
+  {
+    "instruction": "Generate a function for converting JSON data to a Python object.",
+    "input": "",
+    "output": "\"\"\"\nGenerate a function for converting JSON data to a Python object\n\"\"\"\n\nimport json\n\ndef json_to_object(json_data):\n    return json.loads(json_data)"
+  },
+  {
+    "instruction": "Create a Python program to generate a hamming code for a given bit string.",
+    "input": "",
+    "output": "def generateHammingCode(bitString):\n    # Get length of the input bit string\n    n = len(bitString) \n  \n    # Calculate the number of parity bits\n    m = 0\n    while 2**m < n + m + 1: \n        m+= 1\n  \n    # Initialize 2 empty lists to store parity and encoded bits\n    parityBits = [] \n    encodedList = [] \n  \n    # Calculate parity bits\n    for i in range(m): \n        k = 2**i \n        parityBits.append(calculateParityBit(bitString, k)) \n  \n    # Generate hamming code\n    j = 0\n    for i in range (1, n + m + 1): \n        if i == 2**j: \n            encodedList.append(parityBits[j])\n            j += 1\n        else :\n            encodedList.append(int(bitString[i - j - 1]))\n          \n    return encodedList\n  \ndef calculateParityBit(bitString, k): \n    counter = 0\n    for i in range(len(bitString)): \n        if i & k == k :\n            counter += int(bitString[i]) \n    if counter % 2 == 0: \n        return '0'\n    else: \n        return '1'"
+  },
+  {
+    "instruction": "Generate a predictive model using machine learning techniques in Python that can predict the outcome of a future stock price given its historical data.",
+    "input": "",
+    "output": "import pandas as pd \nimport numpy as np\nfrom sklearn.svm import SVR\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error\n\n# Load the data\ndf = pd.read_csv('stock_data.csv')\n\n# Get the features and labels\nX = df.drop(['Close Price'], axis=1).values\ny = df['Close Price'].values\n\n# Split the data into train and test sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=101)\n\n# Train the model\nregressor = LinearRegression()\nregressor.fit(X_train, y_train)\n\n# Make predictions with the model\ny_pred = regressor.predict(X_test)\n\n# Calculate the accuracy\naccuracy = mean_squared_error(y_test, y_pred)\n\nprint(accuracy)"
+  },
+  {
+    "instruction": "Write a Python code to classify a given list of words into two categories depending on length.",
+    "input": "words = [\"aardvark\", \"cat\", \"caterpillar\", \"tail\"]",
+    "output": "def classify_words(words):\n    \"\"\"Classify a list of words into two categories depending on length\"\"\"\n    # Initialize empty lists\n    short_words = []\n    long_words = []\n    # Loop through the words\n    for word in words:\n        # Add the word to the short list if it is less\n        # than 7 characters, otherwise add it to the long list\n        if len(word) < 7:\n            short_words.append(word)\n        else:\n            long_words.append(word)\n\n    return short_words, long_words\n\n# Output\nprint(classify_words(words))"
+  },
+  {
+    "instruction": "Design a class in Python to store details of a person",
+    "input": "Name: John\nAge: 34",
+    "output": "class Person:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n\nperson = Person('John', 34)"
+  },
+  {
+    "instruction": "Design a basic Rock-Paper-Scissors game in Python.",
+    "input": "",
+    "output": "import random\n\noptions = [\"Rock\", \"Paper\", \"Scissors\"]\n\ndef rock_paper_scissors(n):\n    # get computer's move\n    computer_move = random.choice(options)\n    \n    # get user's move\n    print(\"Choose one: Rock, Paper, or Scissors\")\n    user_move = input()\n    user_move = user_move.capitalize()\n    \n    # check for a tie\n    if computer_move == user_move:\n        print(f\"It's a tie! You both chose {computer_move}\")\n    \n    # check for user win\n    elif (user_move == \"Rock\" and computer_move == \"Scissors\") or (user_move == \"Paper\" and computer_move == \"Rock\") or (user_move == \"Scissors\" and computer_move == \"Paper\"):\n        print(f\"You win! {user_move} beats {computer_move}\")\n    \n    # if none of the above, user loses\n    else:\n        print(f\"You lose! {computer_move} beats {user_move}\")\n\nrock_paper_scissors(3)"
+  },
+  {
+    "instruction": "Create a Python program for predicting the stock prices of a company for a given date range.",
+    "input": "Not applicable",
+    "output": "import pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.svm import SVR\nfrom sklearn.model_selection import train_test_split\n\n# Load the stock data from the CSV file\ndf = pd.read_csv('stock_price_data.csv')\n\n# Split data into train and test sets\nX_train, X_test, y_train, y_test = train_test_split(df[['Date','Open']], df['Close'], test_size=0.20, random_state=0)\n\n# Fit a linear regression model to the training data\nmodel = LinearRegression()\nmodel.fit(X_train, y_train)\n\n# Use the trained model to predict the stock prices for the given date range\npredictions = model.predict(X_test)\n\n# Visualize the predictions\nplt.scatter(X_test['Date'], y_test, color='red', label='Actual Stock Prices')\nplt.plot(X_test['Date'], predictions, color='blue', label='Predicted Stock Prices')\n\n# Show the plot\nplt.xlabel('Date')\nplt.ylabel('Stock Price')\nplt.title('Predicted vs Actual Stock Prices')\nplt.legend()\nplt.show()"
+  },
+  {
+    "instruction": "Create a python script that outputs the following string",
+    "input": "My favorite color is blue.",
+    "output": "print('My favorite color is blue.')"
+  },
+  {
+    "instruction": "Translate the following pseudocode into Python",
+    "input": "\"For each element in the array, if it is an even number, add one to a counter\"",
+    "output": "def count_even(arr): \n    count = 0\n    for x in arr: \n        if x % 2 == 0: \n            count += 1\n    return count"
+  },
+  {
+    "instruction": "Write a Python program to print the following string pattern.",
+    "input": "*__*__*",
+    "output": "for i in range(3):\n    for j in range(3):\n        if (i == j) or (i + j == 2):\n            print('*', end=\"\")\n        else:\n            print('_', end=\"\")\n    print()"
+  },
+  {
+    "instruction": "Write a Python program to generate random passwords of length 8.",
+    "input": "",
+    "output": "import random\n\ndef generate_password(): \n    s = \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@#$0123456789\"\n    p =  \"\".join(random.sample(s,8))\n    return p\n\nprint(generate_password())"
+  },
+  {
+    "instruction": "Create an API in Python and deploy it with the Flask framework",
+    "input": "",
+    "output": "# import dependencies\nimport flask\nfrom flask import request, jsonify\n\n#import API methods\nimport some_function\n\napp = flask.Flask(__name__)\napp.config[\"DEBUG\"] = True\n\n# create API endpoint\n@app.route('/api', methods=['GET'])\ndef api_call():\n    # Get the query parameters\n    query_parameters = request.args\n  \n    # Call the API method\n    result = some_function.some_function(query_parameters)\n \n    # Return jsonified output\n    return jsonify(result)\n\n# run the API\nif __name__ == '__main__':\n    app.run()"
+  },
+  {
+    "instruction": "Create a neural network architecture in Python for predicting the values of a time series dataset.",
+    "input": "",
+    "output": "model = Sequential()\n\nmodel.add(LSTM(50, activation='relu', input_shape=(n_timesteps, n_features)))\n\nmodel.add(Dense(100, activation='relu'))\nmodel.add(Dropout(0.5))\n\nmodel.add(Dense(n_outputs))\nmodel.add(Activation('linear'))\n\nmodel.compile(loss='mean_squared_error', optimizer='adam', metrics=['accuracy'])\n\n# fit network\nmodel.fit(X_train, y_train, epochs=50, batch_size=72, verbose=2)"
+  },
+  {
+    "instruction": "Create an API in Python for generating a random password.",
+    "input": "Not applicable",
+    "output": "import random\nimport string\n\ndef generate_random_password():\n  # Choose a length for the password\n  length = 8\n  \n  # Create the password\n  password = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(length))\n  \n  print(\"Generated Password:\", password)\n  \n  return password\n\ngenerate_random_password()"
+  },
+  {
+    "instruction": "Build a function in Python to compute the Fibonacci numbers up to a given maximum.",
+    "input": "maximum = 15",
+    "output": "def fibonacciGenerator(maximum):\n    i1, i2 = 0, 1\n    while i1 < maximum:\n        yield i1\n        i1, i2 = i2, i1 + i2\n\nfibonacci = list(fibonacciGenerator(15))\nprint(fibonacci)"
+  },
+  {
+    "instruction": "Create a NLP model in Python to classify movie reviews from IMDb as either positive or negative.",
+    "input": "Not applicable",
+    "output": "import pandas as pd\nimport numpy as np\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.feature_extraction.text import CountVectorizer\nfrom sklearn.naive_bayes import MultinomialNB\n\n# Load and clean the data\ndata = pd.read_csv('imdb_data.csv').dropna()\n\n# Split the data into training and test sets\nX_train, X_test, y_train, y_test = train_test_split(data['review'], \n                                                    data['label'], \n                                                    test_size=0.2)\n\n# Create bag of words model\ncv = CountVectorizer()\ncv.fit(X_train)\nX_train = cv.transform(X_train)\nX_test = cv.transform(X_test)\n\n# Create Naive Bayes model\nNB_model = MultinomialNB()\nNB_model.fit(X_train, y_train)\n\n# Make predictions\ny_predictions = NB_model.predict(X_test)\n\n# Evaluate performance\naccuracy = np.mean(y_predictions==y_test)\nprint('Model accuracy is:', accuracy)"
+  },
+  {
+    "instruction": "Create a class in Python that represents a Tree node with the following attributes - name, value, left, right.",
+    "input": "",
+    "output": "class TreeNode:\n    def __init__(self, name, value, left=None, right=None):\n        self.name = name\n        self.value = value\n        self.left = left\n        self.right = right"
+  },
+  {
+    "instruction": "Suggest a change to the following loop to make it more Pythonic.",
+    "input": "numbers = [1, 2, 3, 4, 5]\nfor i in range(len(numbers)):\n    print(numbers[i])",
+    "output": "numbers = [1, 2, 3, 4, 5]\n\nfor number in numbers:\n    print(number)"
+  },
+  {
+    "instruction": "optimize a given python code by using correct data structures and algorithms.",
+    "input": "def someFunction(someList):\n    outputList = []\n    for item in someList:\n        if item not in outputList:\n            outputList.append(item)\n    return outputList",
+    "output": "def someFunction(someList):\n    seen = set()\n    outputList = []\n    for item in someList:\n        if item not in seen:\n            outputList.append(item)\n            seen.add(item)\n    return outputList"
+  },
+  {
+    "instruction": "Create a Python program to Generate an ASCII art visualization of input text or a string.",
+    "input": "\"Hello World!\"",
+    "output": "def ascii_art(inputText):\n  # Create dictionary\n  ascii_dict = {\n    'A' : '    _____  ',\n    'B' : ' \\/3_  3_\\/',\n    'C' : '  (__/ \\__)',\n    'D' : ' \\/2_  2_\\/',\n    'E' : '  (__/ \\__)',\n    'F' : '  (___/ \\__)',\n    'G' : '  (__&_/ \\_)',\n    'H' : '   //\\/ \\\\\\\\',\n    'I' : '    ---/ \\_',\n    'J' : '(___/ \\___)',\n    'K' : '\\\\__- .- \\_/',\n    'L' : '(__/ \\___)',\n    'M' : '   =\\ \\\\/ /=',\n    'N' : '   =5 \\/ 5=',\n    'O' : '  (___/ \\__)',\n    'P' : ' \\(___/ \\__)',\n    'Q' : ' (___/ \\___)',\n    'R' : ' \\(___/ \\_/',\n    'S' : '(__/ \\___)',\n    'T' : ' (___/ \\___)',\n    'U' : '  (__/ \\___)',\n    'V' : '   \\ \\/ /',\n    'W' : '    \\\\/ | \\\\/',\n    'X' : '     \\/ |',\n    'Y' : '     \\/ |',\n    'Z' : '(__/ \\___)'\n  }\n\n  pic = \"\"\n  for letter in inputText:\n    pic = pic + ascii_dict[letter.upper()] + \"\\n\"\n    \n  return pic\n\nprint(ascii_art(\"Hello World!\")) \n\n# outputs: \n'''\n    _____      (___/ \\___)\n \\/3_  3_\\/   (__/ \\___)\n  (__/ \\__)   (___/ \\___)\n \\/2_  2_\\/    \\ \\/ /\n  (__/ \\__)     \\/ |\n  (___/ \\___)  (__/ \\___)\n'''"
+  },
+  {
+    "instruction": "Using the Python library Keras, create a Multi-Layer Perceptron model to predict the price of an article of clothing.",
+    "input": "Not applicable",
+    "output": "import numpy as np\nimport pandas as pd\n\nfrom keras.models import Sequential\nfrom keras.layers import Dense\n\n# Read the dataset\ndf = pd.read_csv('clothing.csv')\n\n# Split the dataset into features and labels\nX = df.iloc[:,:-1]\ny = df.iloc[:,-1]\n\n# Create the model\nmodel = Sequential()\nmodel.add(Dense(64, activation='relu', input_shape=(X.shape[1],)))\nmodel.add(Dense(64, activation='relu'))\nmodel.add(Dense(1))\n\n# Compile the model\nmodel.compile(optimizer='adam', loss='mse', metrics=['mae'])\n\n# Train the model\nmodel.fit(X, y, epochs=100, batch_size=32, validation_split=0.2, verbose=0)"
+  },
+  {
+    "instruction": "Create a Python program for visualizing a given dataset using matplotlib.",
+    "input": "x = [1, 2, 3, 4, 5]\ny = [1, 4, 9, 16, 25]",
+    "output": "import matplotlib.pyplot as plt \n\nx = [1, 2, 3, 4, 5] \ny = [1, 4, 9, 16, 25] \n  \n# plotting the points  \nplt.plot(x, y) \n\n# naming the x axis \nplt.xlabel('x - axis') \n# naming the y axis \nplt.ylabel('y - axis') \n  \n# giving a title to my graph \nplt.title('My first graph!') \n  \n# function to show the plot \nplt.show()"
+  },
+  {
+    "instruction": "Edit the following Python code and make it more efficient.",
+    "input": "def maxProfit(prices): \n    max_profit, min_price = 0, float('inf') \n    for price in prices: \n        min_price = min(min_price, price) \n        max_profit = max(max_profit, price - min_price) \n    return max_profit",
+    "output": "def maxProfit(prices): \n    if not prices: \n        return 0\n    max_profit, min_price = 0, prices[0] \n    for price in prices[1:]: \n        min_price = min(min_price, price) \n        max_profit = max(max_profit, price - min_price) \n    return max_profit"
+  },
+  {
+    "instruction": "Create a GUI using Tkinter in Python which allows a user to input some text, and then prints out the text on the screen.",
+    "input": "",
+    "output": "import tkinter as tk\n\n# Create a window\nwindow = tk.Tk()\nwindow.title(\"Printed Text Output\") \nwindow.geometry(\"500x500\") \n\n# Label and Entry to input text\nlabel1 = tk.Label(window, text=\"Input text:\").place(x=50, y=50)\nentry = tk.Entry(window)\nentry.place(x=120, y=50)\n\n# Print out the text\ndef print_text():\n    userInput = entry.get()\n    label2 = tk.Label(window, text=\"The printed text is: \"+userInput, font=(\"Helvetica\", 30))\n    label2.place(x=50, y=100)\n  \n# Button to trigger the printing of text\nbutton = tk.Button(window, text=\"Print\", command=print_text) \nbutton.place(x=50, y=80)\n\n# Run the window\nwindow.mainloop()"
+  },
+  {
+    "instruction": "Write a python program to generate a random letter of the alphabet.",
+    "input": "",
+    "output": "import random \n  \n# create a list of all the letters in the alphabet\nalphabet = [\"a\", \"b\", \"c\", \"d\", \"e\", \"f\", \"g\", \"h\", \n             \"i\", \"j\", \"k\", \"l\", \"m\", \"n\", \"o\", \"p\", \n             \"q\", \"r\", \"s\", \"t\", \"u\", \"v\", \"w\", \"x\", \n             \"y\", \"z\"] \n  \n# generate a random letter\nrandom_letter = random.choice(alphabet)\nprint(random_letter)"
+  },
+  {
+    "instruction": "Optimize the following application in Python to reduce startup time.",
+    "input": "import time\n\ndef func():\n    start=time.time()\n    i=0\n    while(i<100000000):\n        i+=1\n    end=time.time()\n    print(end-start)\n\nfunc()",
+    "output": "import time\n\ndef func():\n    start=time.time()\n    # Optimized code using range instead of while loop\n    lst = range(100000000)\n    end=time.time()\n    print(end-start)\n\nfunc()"
+  },
+  {
+    "instruction": "Create an algorithm in Python for removing all duplicates from an array.",
+    "input": "arr = [1, 2, 4, 4, 1, 5, 2]",
+    "output": "def removeDuplicates(arr): \n    res = [] \n    seen = set() \n    for e in arr:\n        if e not in seen: \n            res.append(e) \n            seen.add(e) \n      \n    return res \n  \nprint(removeDuplicates([1, 2, 4, 4, 1, 5, 2]))"
+  },
+  {
+    "instruction": "Create a class definition in Python called 'Student' that contains member variables for name, age, and GPA.",
+    "input": "",
+    "output": "class Student:\n    def __init__(self, name, age, gpa):\n        self.name = name\n        self.age = age\n        self.gpa = gpa"
+  },
+  {
+    "instruction": "Create a Python script to generate random passwords of length 8 characters.",
+    "input": "",
+    "output": "import string\nimport random\n\ndef generatePassword():\n  characters = string.ascii_letters + string.digits + string.punctuation\n  password = ''.join(random.choice(characters) for i in range(8))\n  return password\n \nprint(generatePassword())"
+  },
+  {
+    "instruction": "Create a Python class that takes a string and reverses it.",
+    "input": "",
+    "output": "class ReverseString:\n    def __init__(self, s):\n        self.s = s \n\n    def reverse(self):\n        return self.s[::-1]\n\nmy_string = ReverseString('Hello World!')\nprint(my_string.reverse())"
+  },
+  {
+    "instruction": "Update the code snippet below so it works with Python 3.",
+    "input": "def message():\n print \"Hello World!\"",
+    "output": "def message():\n print(\"Hello World!\")"
+  },
+  {
+    "instruction": "Create a basic Python script for categorizing incoming emails. This script should read incoming emails from an IMAP server, categorize them into spam and not spam, and save them in different folders.",
+    "input": "Not applicable",
+    "output": "import imaplib\nimport email\nimport re\n\n# connect to the IMAP server\nimap = imaplib.IMAP4_SSL('imap.gmail.com')\n\n# login\nimap.login('example@gmail.com', 'password')\n\nimap.select('inbox')\n\n# fetch messages\nstatus, data = imap.search(None, '(UNSEEN)')\n\n# loop through messages\nfor msg_id in data[0].split():\n    typ, message_parts = imap.fetch(msg_id, '(RFC822)')\n\n    # get the email message\n    raw_email = message_parts[0][1]\n\n    email_message = email.message_from_bytes(raw_email)\n\n    # extract the from and subject of the email message\n    from_data = re.search(r'(?<=From:)(.*)', str(email_message))\n    from_ = from_data.group().strip()\n\n    subject_data = re.search(r'(?<=Subject:)(.*)', str(email_message))\n    subject = subject_data.group().strip()\n\n    # classify email if it is spam or not\n    if 'spam' in subject.lower():\n        imap.copy(msg_id, 'spam')\n    else:\n        imap.copy(msg_id, 'not_spam')\n\nimap.close()\nimap.logout()"
+  },
+  {
+    "instruction": "Create a Python script to check if a given word or phrase is a palindrome.",
+    "input": "madam",
+    "output": "def is_palindrome(word):\n    word_list = list(word)\n    if word_list == word_list[::-1]:\n        return True\n    else:\n        return False\n\nresult = is_palindrome('madam')\nprint(result)"
+  },
+  {
+    "instruction": "Create a Python script to detect if a number is prime.",
+    "input": "10",
+    "output": "def is_prime(n):\n    if n <= 1:\n        return False\n    for i in range(2, n):\n        if n % i == 0:\n            return False\n    return True\n\nif __name__ == \"__main__\":\n    n = 10\n    if is_prime(n):\n        print(\"{} is a prime number\".format(n))\n    else:\n        print(\"{} is not a prime number\".format(n))"
+  },
+  {
+    "instruction": "Write a Python program to classify the set of strings into two categories based on their length.",
+    "input": "strings = ['short', 'longer_string', 'medium_length', 'very_long_string']",
+    "output": "def classify_strings(strings):\n    # initialize lists for each classification\n    short = []\n    long = []\n    # classify each string\n    for s in strings:\n        if len(s) <= 6:\n            short.append(s)\n        else:\n            long.append(s)\n    # return classified lists\n    return [short, long]\n\nif __name__ == '__main__':\n    strings = ['short', 'longer_string', 'medium_length', 'very_long_string']\n    print(classify_strings(strings))"
+  },
+  {
+    "instruction": "What is the sum of all even numbers from 1 to 100 in Python?",
+    "input": "",
+    "output": "sum = 0\nfor i in range(2,101,2):\n    sum += i\nprint(sum)"
+  },
+  {
+    "instruction": "Create a neural network in Python to recognize the handwritten digits from 0 to 9.",
+    "input": "",
+    "output": "\"\"\"\nCreate a neural network in Python to recognize the handwritten digits from 0 to 9.\n\"\"\"\n\nimport tensorflow as tf\nimport numpy as np\nfrom tensorflow import keras\n\n# load the MNIST dataset\nmnist = keras.datasets.mnist\n(x_train, y_train), (x_test, y_test) = mnist.load_data()\n\n# normalize the data\nx_train, x_test = x_train/255.0, x_test/255.0\n\n# build the model\nmodel = keras.Sequential([\n    keras.layers.Flatten(input_shape=(28, 28)),\n    keras.layers.Dense(256, activation='relu'),\n    keras.layers.Dense(10, activation='softmax')\n])\n\n# compile and fit the model\nmodel.compile(optimizer='adam', \n              loss='sparse_categorical_crossentropy',\n              metrics=['accuracy'])\nmodel.fit(x_train, y_train, epochs=10)\n\n# evaluate the model\ntest_loss, test_acc = model.evaluate(x_test, y_test)\nprint(\"Test accuracy: \", test_acc)"
+  },
+  {
+    "instruction": "Develop a Python script to scrape and store data from a specified website.",
+    "input": "",
+    "output": "\"\"\"\nDevelop a python script to scrape and store data from a specified website.\n\"\"\"\n\nimport requests\nfrom bs4 import BeautifulSoup\nimport pandas as pd\n\n# specify website URL\nurl = '<website url>'\n\n# get page content\npage = requests.get(url).text\n\n# parse the page for data\nsoup = BeautifulSoup(page, 'html.parser')\n\n# find data element in page\ndata_elements = soup.find_all('<data>')\n\n# extract data from element and store in a list\ndata_list = []\nfor elem in data_elements:\n    data_list.append(elem.text)\n\n# create dataframe with data and store in csv file\ndf = pd.DataFrame(data_list)\ndf.to_csv('data.csv')"
+  },
+  {
+    "instruction": "Generate a neural network model which uses the Keras API in Python to predict whether an email is spam or not.",
+    "input": "Not applicable",
+    "output": "from tensorflow.keras.layers import Dense, Input\nfrom tensorflow.keras.models import Sequential\n\nmodel = Sequential()\ninput = Input(shape=(1,))\n\nx = Dense(32, activation='relu')(input)\nx = Dense(32, activation='relu')(x)\nx = Dense(1, activation='sigmoid')(x)\n\nmodel = Model(inputs=input, outputs=x)\nmodel.compile(optimizer='adam',\n              loss='binary_crossentropy',\n              metrics=['accuracy'])"
+  },
+  {
+    "instruction": "Design a function in Python to remove all occurrences of a given number from a given list.",
+    "input": "[1, 7, 3, 1, 4, 7, 9], 7",
+    "output": "def remove_num(lst, num):\n  return [n for n in lst if n != num]\n\nprint(remove_num([1, 7, 3, 1, 4, 7, 9], 7))  # [1, 3, 1, 4, 9]"
+  },
+  {
+    "instruction": "Write a Python program to calculate the difference between the lowest and highest value for an array of integers.",
+    "input": "[12, 24, 3, 8, -1]",
+    "output": "def diffHighestLowest(arr):\n    lowest = min(arr)\n    highest = max(arr)\n    return highest - lowest\n\narr = [12, 24, 3, 8, -1]\ndifference = diffHighestLowest(arr)\nprint(difference)  # 25"
+  },
+  {
+    "instruction": "Create a Python code to generate HTML output from a given text input.",
+    "input": "This is a sample text to be converted to html output.",
+    "output": "def generate_html(text): \n    \n    html_string = \"\"\n    for line in text.splitlines():\n        html_string += \"<p align=\\\"justify\\\">{}</p>\\n\".format(line)\n    \n    return html_string"
+  },
+  {
+    "instruction": "Create a python script to print the following patterns in the output",
+    "input": "",
+    "output": "def print_pattern(n): \n      \n    k = 0\n    for i in range(1, n+1): \n        # logic to print pattern\n        for j in range(i, n+1): \n            print(\"* \", end=\"\") \n        k = 0\n        for j in range(1, i*2): \n            if k == 0: \n                print(i, end=\"\")\n                k += 1\n            else: \n                print(\"$\", end=\"\")\n        print() \n   \nif __name__ == '__main__':\n    print_pattern(4)"
+  },
+  {
+    "instruction": "Construct a Python program to recursively count down from a given number?",
+    "input": "num = 5",
+    "output": "def countdown(num):\n    if num == 0:\n        return\n    else:\n        print(num)\n        num -= 1\n        countdown(num)\n\ncountdown(5)"
+  },
+  {
+    "instruction": "Create a Python script to transform a list of strings into a list of integers, each integer representing the length of the corresponding string.",
+    "input": "[\"Hello\", \"World\", \"Goodbye\"]",
+    "output": "def string_to_length(list_strings):\n    return [len(string) for string in list_strings]"
+  },
+  {
+    "instruction": "Compute the area of a given circle using its radius in Python.",
+    "input": "radius = 5",
+    "output": "import math\n\ndef calculateCircleArea(radius):\n    area = math.pi * radius * radius\n    return area\n\nradius = 5\n\nprint(\"Area of a circle with radius 5 is: \", calculateCircleArea(radius))"
+  },
+  {
+    "instruction": "Write a Python program to arrange two dictionaries in order of their keys.",
+    "input": "dct1 = {'a':1, 'b':2, 'c':3}\ndct2 = {'e':4, 'd':5, 'f':6}",
+    "output": "def sort_dicts_by_keys(dct1, dct2):\n    result = {}\n    keys = sorted(list(dct1.keys()) + list(dct2.keys()))\n    for key in keys:\n        if key in dct1:\n            result[key] = dct1[key]\n        else:\n            result[key] = dct2[key]\n        \n    return result"
+  },
+  {
+    "instruction": "Create a linear regression model in Python, to predict housing prices based on the given features.",
+    "input": "Num Rooms: 5\nBathrooms: 1\nSquare Footage: 1500\nArea: rural",
+    "output": "import numpy as np \nimport pandas as pd \n\n# Read the data \ndata = pd.read_csv('data.csv')\n\n# Create the feature matrix \nX = data[['num_rooms', 'bathrooms', 'square_footage', 'area']]\n\n# Create the outcomes vector \ny = data['price']\n\n# Fit the model \nfrom sklearn.linear_model import LinearRegression \n\nmodel = LinearRegression()\nmodel.fit(X, y)\n\n# Make predictions \npredicted_price = model.predict([[5, 1, 1500, 'rural']]) \nprint(\"Predicted price: ${:,.2f}\".format(predicted_price[0]))"
+  },
+  {
+    "instruction": "Create a web scraper in Python to extract all links from a website.",
+    "input": "",
+    "output": "import requests\nfrom bs4 import BeautifulSoup\n\ndef get_all_links(url):\n  \n  # make a GET request to fetch the raw HTML content\n  html_content = requests.get(url).text\n  \n  # parse the html content\n  soup = BeautifulSoup(html_content, \"lxml\")\n  \n  # extract all links from web page \n  links = soup.find_all(\"a\")\n  return links"
+  },
+  {
+    "instruction": "Write a Python function to calculate the mean absolute error between two datasets.",
+    "input": "",
+    "output": "def mean_absolute_error(y_true, y_pred):\n    return np.mean(np.abs(y_true - y_pred))"
+  },
+  {
+    "instruction": "Develop a Python script to delete all non-alphabetic characters in a string.",
+    "input": "String with non-alphabetic characters- '123hello!?",
+    "output": "def remove_non_alpha(string):\n    new_string = \"\"\n    for char in string:\n        if char.isalpha():\n            new_string += char\n    return new_string"
+  },
+  {
+    "instruction": "Implement a function in Python to find the prime numbers between 1 and a given max value",
+    "input": "",
+    "output": "def find_primes_less_than(max_value):\n    primes=[]\n    for num in range(2, max_value + 1):\n        is_prime = True\n        for i in range(2, num):\n            if (num % i == 0):\n               is_prime = False\n        if is_prime:\n            primes.append(num) \n    return primes"
+  },
+  {
+    "instruction": "Create a web scraper in Python to parse the HTML source code of a web page and extract data from a specific section.",
+    "input": "Website URL: http://example.org/\nHTML section to extract data from: <div class=\"main-content\">...</div>",
+    "output": "import requests\nfrom bs4 import BeautifulSoup\n\nurl = 'http://example.org/'\nr = requests.get(url)\nsoup = BeautifulSoup(r.text, 'html.parser')\n\ndata = soup.find('div', {'class': 'main-content'})\n# data is now a BeautifulSoup object containing the HTML of the <div class=\"main-content\"> element"
+  },
+  {
+    "instruction": "Generate a valid Python 3 cURL request to the OpenWeatherMap API for current weather information.",
+    "input": "A city name, \"Paris\".",
+    "output": "import requests \n  \n# defining the api-endpoint \nAPI_ENDPOINT = \"https://api.openweathermap.org/data/2.5/weather\"\n  \n# data to be sent to api \ndata = {\"q\" : \"Paris\", \"appid\" : YOUR_API_KEY} \n  \n# sending post request and saving response as response object \nr = requests.get(url = API_ENDPOINT, params = data) \n  \n# extracting response text  \npastebin_url = r.text \nprint(\"The current weather for Paris is :%s\"%pastebin_url)"
+  },
+  {
+    "instruction": "Train a linear regression model using Python to predict the prices of houses.",
+    "input": "",
+    "output": "import pandas as pd\nfrom sklearn.linear_model import LinearRegression\n\n#load dataset\ndf = pd.read_csv(\"housing_data.csv\")\n\n#split dataset\nX = df.drop(\"price\", axis=1)\ny = df[\"price\"]\n\n#train model\nmodel = LinearRegression()\nmodel.fit(X, y)"
+  },
+  {
+    "instruction": "Create a Python script to transform given numbers into a digital clock format.",
+    "input": "Not applicable",
+    "output": "# A Program to convert given number to digital clock format\ndef num2clock(n):\n  hour = int (n / 3600)\n  minute = int ((n % 3600) / 60)\n  second = int ((n % 3600) % 60)\n  return str(hour).zfill(2) + ':' + str(minute).zfill(2) + ':' + str(second).zfill(2) \n\n# Main\nn = int(input((\"Enter a number: \")))\nprint(num2clock(n))"
+  },
+  {
+    "instruction": "Build a collection of functions in python that can help analyze a text",
+    "input": "",
+    "output": "def find_words(text):\n    \"\"\"Find all the words in the given text.\"\"\"\n    return text.split()\n\ndef find_word_count(text):\n    \"\"\"Find the number of words in the given text.\"\"\"\n    words = find_words(text)\n    return len(words)\n\ndef find_average_word_length(text):\n    \"\"\"Find the average word length in the given text.\"\"\"\n    words = find_words(text)\n    total_len = 0\n    for word in words:\n        total_len += len(word)\n        \n    return total_len/len(words)"
+  },
+  {
+    "instruction": "Write a Python script to print the frequency of all unique words in a given string.",
+    "input": "\"Hello world, hello programmer\"",
+    "output": "words = \"Hello world, hello programmer\".split()\n\nword_freq = {}\nfor word in words:\n    if word not in word_freq:\n        word_freq[word] = 1 \n    else:\n        word_freq[word] += 1\n\nfor key, value in word_freq.items():\n    print(f\"{key} : {value}\")"
+  },
+  {
+    "instruction": "Write a python program to use an API and process the results.",
+    "input": "",
+    "output": "import requests\n\nurl = 'https://api.example.com/xyz'\n\n# Make a request to the API\nresp = requests.get(url)\n\n# Process the response\ndata = resp.json()\n\n# Do stuff with the response\nfor item in data:\n\tprint(item)"
+  },
+  {
+    "instruction": "Create a search engine using Python",
+    "input": "",
+    "output": "#import the necessary packages\nfrom bs4 import BeautifulSoup\nfrom requests import get\n\n#function to scrape data\ndef scrape_data(url): \n    response = get(url)\n    soup = BeautifulSoup(response.text, \"html.parser\") \n    return soup\n\n#function to search data\ndef search_data(search_query): \n    #specify the base URL\n    base_url = \"https://www.example.com/search?q=\"\n    search_query = search_query.replace(\" \", \"+\") \n\n    #generate the complete URL\n    complete_url = base_url + search_query\n    #extract the data\n    soup = scrape_data(complete_url) \n    results = soup.find_all('div', class_='result') \n\n    #display the results\n    print(\"Showing Results For: \" + search_query) \n    print(\"=================================\")\n\n    #search through the results \n    for result in results:\n        print(result.text)\n\n#sample search query\nsearch_query = \"machine learning\"\n\nsearch_data(search_query)"
+  },
+  {
+    "instruction": "Create a search algorithm in Python that will search an array of strings for a given target string.",
+    "input": "",
+    "output": "def search(target, array):\n  for item in array:\n    if target == item:\n      return True\n   \n  return False"
+  },
+  {
+    "instruction": "Suggest how to make the following Python loop execute faster.",
+    "input": "def find_list_difference(list1, list2):\n    diff = []\n    for item in list1:\n        if item not in list2:\n            diff.append(item)\n    return diff",
+    "output": "def find_list_difference(list1, list2):\n    diff = []\n    list2_set = set(list2)\n    for item in list1:\n        if item not in list2_set:\n            diff.append(item)\n    return diff"
+  },
+  {
+    "instruction": "Create a visualisation for the following dataset in Python using Matplotlib.",
+    "input": "movie_name,distance\nJareth and Sarah, 77.4\nGarreth and Martha, 4.3\nPam and Joe, 22.6",
+    "output": "import matplotlib.pyplot as plt\n\nmovie_name = ['Jareth and Sarah', 'Garreth and Martha', 'Pam and Joe']\ndistance = [77.4, 4.3, 22.6]\n\nplt.bar(movie_name, distance)\nplt.xlabel('Movie Name')\nplt.ylabel('Distance (miles)')\nplt.title('Movie Name vs Distance')\nplt.show()"
+  },
+  {
+    "instruction": "Configure a web-server in Python using Flask.",
+    "input": "",
+    "output": "from flask import Flask\n\napp = Flask(__name__)\n\n@app.route(\"/\")\ndef hello():\n    return \"Hello World!\"\n\napp.run()"
+  },
+  {
+    "instruction": "Write a python script to calculate the standard deviation of a given list of numbers",
+    "input": "numbers = [1, 2, 3, 4, 5]",
+    "output": "import numpy as np\n\ndef calculate_standard_deviation(arr):\n    return np.std(arr)\n\nprint(calculate_standard_deviation(numbers)) # Prints 1.4142135623730951"
+  },
+  {
+    "instruction": "Develop a Python Webscraper for collecting data from a given URL.",
+    "input": "Example URL: http://example.com/data",
+    "output": "import requests\nfrom bs4 import BeautifulSoup\n\nURL = 'http://example.com/data'\n\n# Send a request to the URL\npage = requests.get(URL)\n\n# Parse the page\nsoup = BeautifulSoup(page.content, 'html.parser')\n\n# Get the data\ndata = soup.find_all('div', class_='data')\n\n# Print the data\nfor item in data:\n print(item.text)"
+  },
+  {
+    "instruction": "Develop a program in python to generate a matrix",
+    "input": "Rows: 3\nColumns: 4",
+    "output": "def generate_matrix(rows, cols):\n   matrix = [] \n   for i in range(rows): \n       row = []\n       for j in range(cols): \n           row.append(0)\n       matrix.append(row)\n   return matrix\n\n# Example\nm = generate_matrix(3, 4)\nprint(m)  # Output: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]"
+  },
+  {
+    "instruction": "Edit the given Python program to return the absolute value of a given number",
+    "input": "def absolute_value(x):\n    if x < 0:\n        return -x",
+    "output": "def absolute_value(x):\n    if x < 0:\n        return -x\n    else:\n        return x"
+  },
+  {
+    "instruction": "Take this Python Code and optimize it.",
+    "input": "def count_items(items):\n    item_counter = {}\n    for item in items:\n        if item not in item_counter:\n            item_counter[item] = 1\n        else:\n            item_counter[item] += 1        \n    return item_counter",
+    "output": "def count_items(items):\n    item_counter = {}\n    for item in items:\n        item_counter[item] = item_counter.get(item, 0) + 1\n    return item_counter"
+  },
+  {
+    "instruction": "Write a Python Program to take multiple inputs and prints the highest among them.",
+    "input": "14, 16, 2",
+    "output": "values = [14, 16, 2]\n \nhighest = values[0]\n \nfor i in values:\n    if highest < i:\n        highest = i\n \nprint(\"The highest value is: \", highest)"
+  },
+  {
+    "instruction": "In Python print out the first 10 numbers of the Fibonacci sequence.",
+    "input": "",
+    "output": "a, b = 0, 1\nfor i in range(10):\n  print(a)\n  a, b = b, a + b\n\n# Output:\n0\n1\n1\n2\n3\n5\n8\n13\n21\n34"
+  },
+  {
+    "instruction": "Develop a Python program that plays all the notes of a particular key (say F Sharp Major)",
+    "input": "",
+    "output": "def play_f_sharp_major():\n    key_notes = ['F#', 'G#', 'A', 'A#', 'B', 'C#', 'D#']\n\n    for note in key_notes:\n        play_note(note)"
+  },
+  {
+    "instruction": "Develop a python program to create an XML document.",
+    "input": "",
+    "output": "from xml.etree.ElementTree import Element, SubElement, tostring\n\ndef create_xml_document():\n    root = Element('root')\n    child1 = SubElement(root, 'child1')\n    child2 = SubElement(root, 'child2')\n    return tostring(root).decode()"
+  },
+  {
+    "instruction": "Create a Python method that takes in an array of strings and returns a string that includes all the strings in the array combined into a single string.",
+    "input": "[\"This\", \"is\", \"a\", \"sentence\"]",
+    "output": "def combine_strings(strings): \n    return ' '.join(strings)"
+  },
+  {
+    "instruction": "Using the provided JSON data, write a Python script to search for a particular value.",
+    "input": "[\n  {\"name\":\"John\", \"age\":30, \"city\":\"New York\"},\n  {\"name\":\"Mike\", \"age\":25, \"city\":\"Boston\"},\n  {\"name\":\"Frank\", \"age\":35, \"city\":\"Los Angeles\"}\n]",
+    "output": "import json\n\ndata = json.loads('[{\"name\":\"John\", \"age\":30, \"city\":\"New York\"},\"name\":\"Mike\", \"age\":25, \"city\":\"Boston\"}, {\"name\":\"Frank\", \"age\":35, \"city\":\"Los Angeles\"}]')\n\ndef search(data, key, value):\n    for item in data:\n        if item[key] == value:\n            return item\n\nprint(search(data, \"city\", \"New York\"))"
+  },
+  {
+    "instruction": "Develop a chatbot with Python to answer customer inquiries.",
+    "input": "",
+    "output": "import re\nimport random\n\nclass Chatbot:\n    # constructor\n    def __init__(self):\n        self.responses = {\n            # greetings\n            \"hi\": [\"Hello!\", \"Hi!\", \"Hey!\", \"Hi there!\"],\n            \"hello\": [\"Howdy!\", \"Hey!\", \"Hey there!\"],\n            # farewells\n            \"bye\": [\"Goodbye!\", \"Bye!\", \"See you later!\"],\n            \"goodbye\": [\"Bye!\", \"Farewell!\", \"See you later!\"],\n            # general\n            \"thanks\": [\"You're welcome!\", \"It was my pleasure!\", \"No problem!\"]\n        }\n    \n    # tokenizes the input\n    def tokenize_input(self, input_text):\n        return re.split(\" \", input_text.lower())\n    \n    # checks if a given word exists in the responses\n    def is_valid_input(self, word):\n        return word in self.responses\n    \n    # main rule-based chatbot logic\n    def chatbot_response(self, input_text):\n        tokenized_input = self.tokenize_input(input_text)\n        \n        if any([self.is_valid_input(word) for word in tokenized_input]):\n            # select a random valid response\n            random_index = random.randint(0, len(self.responses[tokenized_input[0]]) - 1)\n            return self.responses[tokenized_input[0]][random_index]\n        else:\n            return \"I'm sorry, I don't understand.\""
+  },
+  {
+    "instruction": "Design a REST API in Python for connecting a remote database, and fetching One user’s all records from the database.",
+    "input": "Database Username: John \nDatabase Password: 12345",
+    "output": "import requests\n\n# Connect the remote database\nurl = \"http://{database_url}/connect\"\ndata = {\n   'username': 'John',\n   'password': '12345'\n}\n\nresponse = requests.post(url, data=data)\n\n# Get user data\nurl = \"http://{database_url}/user/data\"\nresponse = requests.get(url)\n\n# Print user data\nprint(response.json())"
+  },
+  {
+    "instruction": "Analyze the following code in Python and write an improved version of it.",
+    "input": "def countOccurrences(string, x): \n  count = 0\n  for i in range(len(string)): \n    if string[i] == x: \n      count += 1\n  return count",
+    "output": "def countOccurrences(string, x): \n  count = 0\n  for i in range(len(string)): \n    if string[i] == x: \n      count += 1\n  return count \n\ndef countOccurrences2(string, x): \n  found = False\n  count = 0\n  for i in range(len(string)): \n    if string[i] == x and not found: \n      count += 1\n      found = True\n    else: \n      found = False\n  return count"
+  },
+  {
+    "instruction": "Create a Python program to store prices for grocery items in a dictionary and write a function to calculate the total cost of the items.",
+    "input": "groceries = {'apple': 3.99, 'banana': 2.99, 'milk': 5.99, 'bread': 3.50}",
+    "output": "groceries = {'apple': 3.99, 'banana': 2.99, 'milk': 5.99, 'bread': 3.50}\n\ndef total_cost(groceries):\n  total = 0.0\n  for key in groceries:\n    total += groceries[key]\n  return total\n\ntotal_cost = total_cost(groceries)\nprint(f'The total cost of all groceries is ${total_cost}.')"
+  },
+  {
+    "instruction": "Rewrite the following if/else statement in one line of Python code",
+    "input": "if condition:\n    do_this()\nelse:\n    do_that()",
+    "output": "do_this() if condition else do_that()"
+  },
+  {
+    "instruction": "Using Python, generate a program for solving linear equations.",
+    "input": "x + 2y = 8\n3x – 4y = -2",
+    "output": "def solution(coefficients):\n\t# get the coefficients of the equations\n\ta = coefficients[0][0] \n\tb = coefficients[0][1] \n\tc = coefficients[0][2] \n\td = coefficients[1][0] \n\te = coefficients[1][1] \n\tf = coefficients[1][2] \n\n\t# solve for x and y\n\ty = (a*f - c*d)/(a*e - b*d) \n\tx = (c*e - b*f)/(a*e - b*d) \n\n\t# return the solutions\n\treturn x, y\n\n\n# example\nsolution([[1, 2, 8], [3, -4, -2]])"
+  }
+]

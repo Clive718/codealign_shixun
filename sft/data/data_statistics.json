@@ -1,0 +1,62 @@
+{
+  "total_samples": 4840,
+  "original_samples": 18612,
+  "duplicate_count": 13772,
+  "duplicate_rate": 0.7399527186761229,
+  "instruction_stats": {
+    "mean": 87.77954545454546,
+    "min": 22,
+    "max": 1501,
+    "median": 80,
+    "p25": 66,
+    "p75": 99,
+    "empty_count": 0,
+    "empty_rate": 0.0
+  },
+  "input_stats": {
+    "mean": 31.65909090909091,
+    "min": 0,
+    "max": 660,
+    "median": 14,
+    "p25": 0,
+    "p75": 40,
+    "empty_count": 1554,
+    "empty_rate": 0.3210743801652893
+  },
+  "output_stats": {
+    "mean": 380.62603305785126,
+    "min": 11,
+    "max": 4084,
+    "median": 280,
+    "p25": 158,
+    "p75": 492,
+    "empty_count": 0,
+    "empty_rate": 0.0
+  },
+  "task_type_distribution": {
+    "before_balance": {
+      "math": 1983,
+      "web_api": 518,
+      "data_structure": 4821,
+      "function_general": 1729,
+      "file_io": 1136,
+      "algorithm": 1421,
+      "data_science": 340,
+      "string_processing": 1990,
+      "class_oop": 1638,
+      "other": 505
+    },
+    "after_balance": {
+      "data_science": 340,
+      "data_structure": 500,
+      "function_general": 500,
+      "math": 500,
+      "class_oop": 500,
+      "web_api": 500,
+      "string_processing": 500,
+      "file_io": 500,
+      "other": 500,
+      "algorithm": 500
+    }
+  }
+}

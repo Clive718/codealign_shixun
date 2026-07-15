@@ -1,0 +1,92 @@
+[
+  {
+    "index": 0,
+    "instruction": "Create a Python program to create a pandas DataFrame containing data about cars. Include columns for make, model, price, and mpg.",
+    "input": "Not applicable",
+    "output": "import pandas as pd\n\ncolumn_names = [\"make\", \"model\", \"price\", \"mpg\"]\ncars = [ \n    [\"Toyota\", \"Camry\", 23000, 28],\n    [\"Honda\", \"Accord\", 21000, 30],\n    [\"Ford\", \"Ecosport\", 20000, 25],\n    [\"Hyundai\", \"Elantra\", 22000, 27],\n    [\"Toyota\", \"Corolla\", 18000, 35],\n    [\"Honda\", \"Civic\", 19000, 32],\n    [\"Ford\", \"Escape\", 24000, 24],\n    [\"Hyundai\", \"Sonata\", 19500, 29]\n]\n\ndf = pd.DataFrame(cars, columns=column_names)\nprint(df)",
+    "instruction_len": 129,
+    "input_len": 14,
+    "output_len": 431
+  },
+  {
+    "index": 1,
+    "instruction": "Create a data science program using Python and Scikit-Learn to predict house prices.",
+    "input": "Not applicable",
+    "output": "#import dependencies\nimport pandas as pd\nimport numpy as np\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.metrics import mean_squared_error\n\n#load dataset\ndf = pd.read_csv('dataset.csv')\n\n#split dataset into X and Y\nX = df.drop('price', axis=1)\nY = df['price']\n\n#split into training and test sets\nX_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=0)\n\n#create and fit the model\nmodel = LinearRegression()\nmodel.fit(X_train, Y_train)\n\n#predict using the model\nY_pred = model.predict(X_test)\n\n#calculate the mean squared error\nmse = mean_squared_error(Y_test, Y_pred)\nprint(\"Mean Squared Error:\", mse)\n\n#see the trained parameters\nprint(\"Intercept:\", model.intercept_)\nprint(\"Coefficients:\", model.coef_)",
+    "instruction_len": 84,
+    "input_len": 14,
+    "output_len": 807
+  },
+  {
+    "index": 2,
+    "instruction": "Write a Python program that takes a list as input and returns the longest consecutive string of characters.",
+    "input": "['a', 'bb', 'ccc', 'dd', 'eee']",
+    "output": "def longest_consecutive(lst):\n    longest = \"\"\n    for word in lst:\n        if len(word) > len(longest):\n            longest = word\n    return longest\n\nlst = ['a', 'bb', 'ccc', 'dd', 'eee']\n\nprint(longest_consecutive(lst))\n\n# Output should be \"ccc\"",
+    "instruction_len": 107,
+    "input_len": 31,
+    "output_len": 248
+  },
+  {
+    "index": 3,
+    "instruction": "Create a Python program to print an encrypted message using a given cipher key.",
+    "input": "message = \"hellohello\"\ncipher_key = 3",
+    "output": "#Input\nmessage = \"hellohello\"\ncipher_key = 3\n\n#Solution\nalphabet = \"abcdefghijklmnopqrstuvwxyz\";\ncipher = alphabet[cipher_key:] + alphabet[:cipher_key]\n\nencoded_message = \"\"\nfor char in message:\n encoded_message += cipher[alphabet.find(char)]\n\nprint(encoded_message) # khoorkhoor",
+    "instruction_len": 79,
+    "input_len": 37,
+    "output_len": 279
+  },
+  {
+    "index": 4,
+    "instruction": "Using the input, write a Python code to find the armstrong number.",
+    "input": "153",
+    "output": "def is_armstrong_number(number):\n    result = 0\n    n = len(str(number))\n    for num in str(number):\n        result += int(num)**n\n    return result == number\n\nresult = is_armstrong_number(153)\nprint(result)",
+    "instruction_len": 66,
+    "input_len": 3,
+    "output_len": 207
+  },
+  {
+    "index": 5,
+    "instruction": "Create a program in Python to grade an essay.",
+    "input": "The student’s essay should be graded on a scale of 0-10, with 10 being the highest score.",
+    "output": "def grade_essay(essay):\n score = 0\n # Score based on content\n # Score based on grammar\n # Score based on spelling\n # Score based on punctuation\n # Score based on style\n \n # Final score should be in range of 0-10\n if score < 0:\n    score = 0\n elif score > 10:\n    score = 10\n \n return score",
+    "instruction_len": 45,
+    "input_len": 89,
+    "output_len": 289
+  },
+  {
+    "index": 6,
+    "instruction": "Implement a simple ML algorithm in Python for binary classification.",
+    "input": "Not applicable",
+    "output": "import numpy as np\n\n# Define sigmoid function\ndef sigmoid(x):\n return 1 / (1 + np.exp(-x))\n\n# Define input data\nX = np.array([[1, 0, 0],\n [1, 0, 1],\n [1, 1, 0],\n [1, 1, 1]])\n\n# Define output data\ny = np.array([[1], \n [0],\n [0],\n [1]])\n\n# Initialize weights randomly \nweights = np.random.rand(3,1)\n\n# Define learning rate\nlearning_rate = 0.1\n\n# Preparing variables for gradient descent \nm = len(y)\npredictions = sigmoid(np.dot(X, weights))\n\n# Calculate cost\ncost = (- 1 / m) * np.sum(y * np.log(predictions) + (1 - y) * (np.log(1 - predictions)))\n\n# Calculate gradient\ngradient = (1 / m) * np.dot(X.T, (predictions - y))\n\n# Update weights\nweights -= learning_rate * gradient\n\n# Make predictions\npredictions = np.round(sigmoid(np.dot(X, weights)))\n\n# Print predictions\nprint(predictions)",
+    "instruction_len": 68,
+    "input_len": 14,
+    "output_len": 785
+  },
+  {
+    "index": 7,
+    "instruction": "Create a Python api to authenticate users using JWT.",
+    "input": "Not applicable",
+    "output": "import jwt \nimport bcrypt\n\nclass AuthenticationApi: \n def __init__(self, user_repo): \n  self.user_repo = user_repo\n \n def authenticate(self, username: str, password: str) -> str: \n  user = self.user_repo.find_by_username(username) \n \n  if user is None: \n   raise ValueError('Invalid username or password') \n \n  if not bcrypt.checkpw(password.encode('utf-8'), user.password): \n   raise ValueError('Invalid username or password') \n \n  token = jwt.encode({'sub': user.id}, 'secret', algorithm='HS256') \n \n  return token.decode('utf-8')",
+    "instruction_len": 52,
+    "input_len": 14,
+    "output_len": 532
+  },
+  {
+    "index": 8,
+    "instruction": "Write a function in Python that merges two string and removes the duplicates.",
+    "input": "string_1 = 'one'\nstring_2 = 'two'",
+    "output": "def merge_strings(string_1, string_2):\n    s = set(string_1 + string_2)\n    merged_string = ''.join(s)\n    return merged_string\n\nmerged_string = merge_strings(string_1, string_2)\nprint(merged_string)\n\n'''\nOutput:\nonetwo\n'''",
+    "instruction_len": 77,
+    "input_len": 33,
+    "output_len": 223
+  },
+  {
+    "index": 9,
+    "instruction": "Using the given data, write a Python program to extract each name along with its age in the following format:",
+    "input": "data = [{\"name\": \"John\", \"age\": 25}, {\"name\": \"James\", \"age\": 26}]",
+    "output": "for item in data:\n    print(f'Name: {item[\"name\"]}, Age: {item[\"age\"]}')",
+    "instruction_len": 109,
+    "input_len": 66,
+    "output_len": 72
+  }
+]

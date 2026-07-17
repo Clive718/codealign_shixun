@@ -307,9 +307,9 @@ bash tts/run_cot_code_eval.sh --limit 20 --selection_mode best_of_n --num_sample
 
 ### 4.6 基础功能结果截图
 
-![DPO 训练 Loss 曲线](docs/images/dpo_training_loss.png)
+![DPO 训练 Loss 曲线](../docs/images/dpo_training_loss.png)
 *图1：DPO训练Loss 曲线*
-![MBPP 评测指标 ](docs/images/mbpp_metrics_json.png)
+![MBPP 评测指标 ](../docs/images/mbpp_metrics_json.png)
 *图2：MBPP评测指标*
 ---
 
@@ -386,7 +386,7 @@ MODEL_PATH=./dpo/outputs/qwen3_code_lora_dpo BATCH_SIZE=32 bash dpo/scripts/run_
 
 #### 示例图片
 
-![不同 Loss 的 MBPP 指标对比](docs/images/dpo_loss_mbpp_comparison.png)
+![不同 Loss 的 MBPP 指标对比](../docs/images/dpo_loss_mbpp_comparison.png)
 *图3：三种 DPO Loss 的 MBPP 指标对比*
 
 ### 5.3 进阶功能 2：Self-Consistency 与 Best-of-N 推理增强
@@ -464,7 +464,7 @@ MODEL_PATH=./dpo/outputs/qwen15_code_full_dpo \
 
 #### 示例图片
 
-![不同推理增强策略评测指标对比](docs/images/reasoning_metrics.png)
+![不同推理增强策略评测指标对比](../docs/images/reasoning_metrics.png)
 *图4：不同推理增强策略评测指标对比图*
 
 ### 5.4 进阶功能 3：Reflexion 反思修正

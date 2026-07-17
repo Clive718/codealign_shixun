@@ -1,0 +1,15 @@
+{
+  "code_dpo_train": {
+    "file_name": "code_dpo_train.json",
+    "ranking": true,
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "chosen": "chosen",
+      "rejected": "rejected"
+    }
+  },
+  "code_dpo_test": {
+    "file_name": "code_dpo_test.json"
+  }
+}

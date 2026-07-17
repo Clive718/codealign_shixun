@@ -808,6 +808,7 @@ re.sub(r"<think>.*?</think>", "", text, flags=re.S)
 部分模型输出包含：
 
 ```python
+```
 code
 
 或者包含额外解释文本。
@@ -818,6 +819,7 @@ code
 
 ```python
 extract_python_code()
+```
 
 自动解析生成结果中的 Python 代码块。
 
